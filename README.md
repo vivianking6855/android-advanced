@@ -1,6 +1,6 @@
 # android-advanced
 
-android Advanced demo
+branch demo list
 
-- IPC
-- RemoteViews
+- ipc : IPC 跨进程通信
+- remoteviews: RemoteViews
