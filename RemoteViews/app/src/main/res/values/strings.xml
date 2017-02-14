@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">RemoteViews</string>
+    <string name="title_client_activity">发送模拟通知栏消息</string>
+</resources>
