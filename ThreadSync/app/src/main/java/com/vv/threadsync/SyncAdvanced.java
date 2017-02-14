@@ -1,6 +1,5 @@
 package com.vv.threadsync;
 
-import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
 

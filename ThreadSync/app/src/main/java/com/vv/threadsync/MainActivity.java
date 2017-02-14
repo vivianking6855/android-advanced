@@ -1,9 +1,9 @@
 package com.vv.threadsync;
 
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.TextView;
@@ -45,17 +45,22 @@ public class MainActivity extends AppCompatActivity {
         mTVShow.setMovementMethod(ScrollingMovementMethod.getInstance());
     }
 
-    public void runSyncBasic(View v){
+    public void runSyncBasic(View v) {
         SyncBasic demo = new SyncBasic(mUIHandler);
         demo.beginTest();
     }
 
-    public void runSyncAdvanced(View v){
+    public void runSyncAdvanced(View v) {
         SyncAdvanced demo = new SyncAdvanced();
         demo.beginTest();
     }
 
-    public void runProductConsume(View v){
+    public void runConcurrentCore(View v) {
+        ConcurrentCoreFeature demo = new ConcurrentCoreFeature();
+        demo.beginTest();
+    }
+
+    public void runProductConsume(View v) {
         ProductManager manager = new ProductManager();
         manager.beginTest();
     }

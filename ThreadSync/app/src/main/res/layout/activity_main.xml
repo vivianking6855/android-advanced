@@ -25,9 +25,9 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="runThreadPool"
+        android:onClick="runConcurrentCore"
         android:padding="20dp"
-        android:text="ThreadPool" />
+        android:text="Concurrent Core Feature" />
 
     <Button
         android:layout_width="wrap_content"
