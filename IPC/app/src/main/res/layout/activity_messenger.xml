@@ -1,40 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context="com.vv.ipc.MainActivity">
+    tools:context="com.vv.ipc.messenger.MessengerActivity">
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="startSecond"
+        android:onClick="sendMsgToService"
         android:padding="20dp"
-        android:text="Test Static Variable" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="runMessenger"
-        android:padding="20dp"
-        android:text="Messenger" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="runAIDL"
-        android:padding="20dp"
-        android:text="AIDL" />
+        android:text="Send Message" />
 
     <TextView
         android:id="@+id/show"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:maxLines="6"
+        android:maxLines="15"
         android:scrollbars="vertical"
         android:textColor="@android:color/holo_orange_dark"
         android:textSize="20dp" />

@@ -3,6 +3,7 @@
     package="com.vv.ipc">
 
     <application
+        android:name=".UserApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -15,6 +16,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".SecondActivity"
+            android:process=":remote" />
+
+        <service
+            android:name=".messenger.MessengerService"
+            android:enabled="true"
+            android:exported="true"
+            android:process=":remote">
+            <intent-filter>
+                <action android:name="com.vv.ipc.messenger.MessengerService.launch" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".messenger.MessengerActivity" />
+
+        <service
+            android:name=".book.BookManagerService"
+            android:process=":remote" />
+
+        <activity android:name=".book.BookManagerActivity"></activity>
     </application>
 
 </manifest>
