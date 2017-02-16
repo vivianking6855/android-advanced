@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.RemoteException;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 
 import com.vv.ipc.Const;
 import com.vv.ipc.IBookManager;
+import com.vv.ipc.INewBookListener;
 import com.vv.ipc.R;
 
 import java.util.Date;
@@ -25,6 +27,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class BookManagerActivity extends AppCompatActivity {
     private static final String TAG = BookManagerActivity.class.getSimpleName();
@@ -70,14 +73,14 @@ public class BookManagerActivity extends AppCompatActivity {
     private IBinder.DeathRecipient mDeathRecipient = new IBinder.DeathRecipient() {
         @Override
         public void binderDied() {
-            Log.d(TAG, "Binder died at thread: " + Thread.currentThread().getName());
+            Log.d(TAG, "Binder died, tid = " + Thread.currentThread().getName());
             if (mRemoteBookManager == null) {
                 return;
             }
             mRemoteBookManager.asBinder().unlinkToDeath(mDeathRecipient, 0);
             mRemoteBookManager = null;
 
-            // release res or rebind server here
+            // you could re connect service here
         }
     };
 
@@ -87,6 +90,7 @@ public class BookManagerActivity extends AppCompatActivity {
             if (mRemoteBookManager != null)
                 try {
                     mRemoteBookManager.asBinder().linkToDeath(mDeathRecipient, 0);
+                    mRemoteBookManager.registerListener(mNewBookListener);
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
@@ -94,6 +98,17 @@ public class BookManagerActivity extends AppCompatActivity {
         }
 
         public void onServiceDisconnected(ComponentName className) {
+            mRemoteBookManager = null;
+            Log.d(TAG, "onServiceDisconnected, tid = " + Thread.currentThread().getName());
+        }
+    };
+
+    private INewBookListener mNewBookListener = new INewBookListener.Stub() {
+
+        @Override
+        public void onNewBookArrived(Book newBook) throws RemoteException {
+            mHandler.obtainMessage(Const.MSG_UPDATE_UI, "rev new book notify : " + newBook.toString() + "\r\n")
+                    .sendToTarget();
         }
     };
 
@@ -109,7 +124,7 @@ public class BookManagerActivity extends AppCompatActivity {
                 try {
                     List<Book> list = mRemoteBookManager.getBookList();
                     Message msg = mHandler.obtainMessage(Const.MSG_UPDATE_UI);
-                    msg.obj = String.format("[books %s : \r\n %s \r\n]", Const.DATA_FORMAT.format(new Date()), list.toString());
+                    msg.obj = String.format("-- books %s : %s \r\n", Const.DATA_FORMAT.format(new Date()), list.toString());
                     msg.sendToTarget();
                 } catch (RemoteException e) {
                     e.printStackTrace();
@@ -128,8 +143,8 @@ public class BookManagerActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    int size = mRemoteBookManager.getBookSize();
-                    Book newBook = new Book(size + 1, "Book " + new Random(size).nextInt(50));
+                    int bookId = mRemoteBookManager.getBookSize() + 1;
+                    Book newBook = new Book(bookId, "new-" + bookId);
                     mRemoteBookManager.addBook(newBook);
                     Log.d(TAG, "add book:" + newBook);
                 } catch (RemoteException e) {
@@ -141,11 +156,26 @@ public class BookManagerActivity extends AppCompatActivity {
 
     @Override
     public void onDestroy() {
+        safeQuitService();
         super.onDestroy();
-
-        unbindService(mServiceConn);
-        Log.d(TAG, "unbindService mRemoteBookManager");
     }
 
+    private void safeQuitService() {
+        if (mRemoteBookManager != null) {
+            try {
+                if (mRemoteBookManager.asBinder().isBinderAlive()) {
+                    Log.d(TAG, "unregister listener:" + mNewBookListener);
+                    mRemoteBookManager.unregisterListener(mNewBookListener);
+                }
+
+                unbindService(mServiceConn);
+                Log.d(TAG, "unBindService mRemoteBookManager");
+
+                mRemoteBookManager = null;
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 }

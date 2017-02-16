@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.vv.ipc">
 
+    <permission
+        android:name="com.vv.ipc.permission.ACCESS_BOOK_SERVICE"
+        android:protectionLevel="normal" />
+
+    <uses-permission android:name="com.vv.ipc.permission.ACCESS_BOOK_SERVICE" />
+
     <application
         android:name=".UserApplication"
         android:allowBackup="true"

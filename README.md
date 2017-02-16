@@ -20,8 +20,10 @@
 
 - Book.java 图书信息的类，实现Parcelable
 - IBook.aidl 是Book类在AIDL中的声明
-- IBookManager Book管理接口：添加，获取图书
-- IBookArrivedListener
+- IBookManager Book管理接口：添加，获取图书，监听图书变化
+- INewBookListener : 新书通知
+- BookManagerActivity: Manager UI
+- BookManagerService: Service deal with command from client (run on alone process)
 
 ## 二、 RemoteViews
 
@@ -48,11 +50,11 @@
 - Create work thread and it's handler and Looper (two ways)
 - Main thread send message with handler
 
-## 四、 多线程和线程池
-
-[多线程和线程池 blog](http://vivianking6855.github.io/Multi-Thread/)
+## 四、 多线程和线程池 
 
 ### 1. MultiThread: Android线程形态
+
+[多线程和线程池 blog](http://vivianking6855.github.io/Multi-Thread/)
 
 - AsyncTask 模拟下载文件。
     - AsyncTask的execute必须在UI线程调用
@@ -70,17 +72,11 @@
 
 ### 2. ThreadSync：线程同步和concurrent包
 
+[Thread Sync blog](http://vivianking6855.github.io/Thread-Sync/)
+
 - SyncBasic：synchronized 基本用法
 - SyncAdvanced：await 实践
 - ConcurrentCoreFeature： concurrent包几个常用类示例
-    - Future 与Runnable,Callable进行交互的接口。线程执行结束后取返回的结果等等，还提供了cancel终止线程。
-    - CompletionService ExecutorService的扩展，可以获得线程执行结果的
-    - Semaphore 一个计数信号量
-    - ReentrantLock 可重入的互斥锁定 Lock，功能类似synchronized，但要强大的多
-    - CountDownLatch 在完成其他线程中操作之前，允许一个或多个线程一直等待
-    - CyclicBarrier 允许一组线程互相等待，直到到达某个公共屏障点
-    - Executor,ExecutorService 参看MultiThread
-    - BlockingQueue 参看product文件夹
 - product文件夹：生产者-消费者模型，current包的BlockingQueue
 
 ## 五、 ImageCache： Image加载和缓存

@@ -16,6 +16,8 @@ public final class Const {
     public final static int MSG_FROM_SERVICE = 10001;
     public final static int MSG_UPDATE_UI = 10002;
 
-    public final static DateFormat DATA_FORMAT = new SimpleDateFormat("HH:mm:ss");
+    public final static DateFormat DATA_FORMAT = new SimpleDateFormat("mm:ss");
+
+    public final static String PERMISSION_ACCESS_BOOK_SERVICE = "com.vv.ipc.permission.ACCESS_BOOK_SERVICE";
 
 }
