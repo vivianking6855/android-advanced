@@ -26,7 +26,7 @@ public class TestCountDownLatch {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                Log.d(TAG,"all works done " + Thread.currentThread().getName());
+                Log.d(TAG, "all works done " + Thread.currentThread().getName());
             }
         });
         threadPool.execute(staff);
@@ -39,7 +39,7 @@ public class TestCountDownLatch {
         public void run() {
             SystemClock.sleep(500);
             mCount.countDown();
-            Log.d(TAG,"work done " + Thread.currentThread().getName());
+            Log.d(TAG, "work done " + Thread.currentThread().getName());
         }
     };
 }
