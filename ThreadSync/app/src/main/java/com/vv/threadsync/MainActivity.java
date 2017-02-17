@@ -8,6 +8,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.TextView;
 
+import com.vv.threadsync.current.ConcurrentCoreFeature;
 import com.vv.threadsync.product.ProductManager;
 
 import java.text.DateFormat;
@@ -64,5 +65,6 @@ public class MainActivity extends AppCompatActivity {
         ProductManager manager = new ProductManager();
         manager.beginTest();
     }
+
 
 }

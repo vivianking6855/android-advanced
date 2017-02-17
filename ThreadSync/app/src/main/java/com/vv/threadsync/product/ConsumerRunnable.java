@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.vv.threadsync.Const;
 
-import java.util.Random;
 import java.util.concurrent.BlockingQueue;
 
 /**
@@ -25,7 +24,7 @@ public class ConsumerRunnable implements Runnable {
 
     @Override
     public void run() {
-        for (int i = 0; i < Const.ALL_NUM; i++) {
+        for (int i = 0; i < Const.MAX_NUM; i++) {
             // consume product
             try {
                 Product item = mQueue.take();

@@ -10,8 +10,8 @@ public  final class Const {
 
     public final static int MSG_TO_UI = 1000;
 
-    // all product num
-    public final static int ALL_NUM = 10;
+    // max product in queue
+    public final static int MAX_NUM = 10;
     // time setting
     public final static int TIME_MAKE = 500;
     public final static int TIME_CONSUME = 8000;
