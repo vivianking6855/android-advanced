@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.vv.imagecache;
+package com.vv.imagecache.imageloader;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedWriter;

@@ -1,4 +1,4 @@
-package com.vv.imagecache;
+package com.vv.imagecache.common;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

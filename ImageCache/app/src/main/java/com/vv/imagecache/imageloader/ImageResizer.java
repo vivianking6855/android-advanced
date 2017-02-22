@@ -1,4 +1,4 @@
-package com.vv.imagecache;
+package com.vv.imagecache.imageloader;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
