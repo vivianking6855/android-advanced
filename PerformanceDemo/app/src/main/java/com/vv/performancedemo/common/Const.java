@@ -1,4 +1,4 @@
-package com.vv.performancedemo;
+package com.vv.performancedemo.common;
 
 /**
  * Created by scott on 16-11-22.

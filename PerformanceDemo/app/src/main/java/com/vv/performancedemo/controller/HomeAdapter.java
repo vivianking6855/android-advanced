@@ -1,4 +1,4 @@
-package com.vv.performancedemo;
+package com.vv.performancedemo.controller;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -8,6 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.vv.performancedemo.R;
+import com.vv.performancedemo.model.Droid;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +24,6 @@ public class HomeAdapter extends RecyclerView.Adapter {
 
     private ArrayList<Droid> mData;
     private Context mContext;
-
 
     // click listener
     private OnItemClickLitener mOnItemClickLitener;
