@@ -15,7 +15,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ClipRectActivity"></activity>
+        <activity android:name=".ClipRectActivity" />
+        <activity android:name=".HVOptimizeActivity"></activity>
     </application>
 
 </manifest>

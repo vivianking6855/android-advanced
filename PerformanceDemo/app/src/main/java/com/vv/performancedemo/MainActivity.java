@@ -38,10 +38,13 @@ public class MainActivity extends AppCompatActivity implements HomeAdapter.OnIte
 
     @Override
     public void onItemClick(View view, int position) {
-        Log.d(TAG, "onItemClick position: "+ position);
+        Log.d(TAG, "onItemClick position: " + position);
         switch (position) {
             case 0:
                 startActivity(ClipRectActivity.class);
+                break;
+            case 1:
+                startActivity(HVOptimizeActivity.class);
                 break;
             default:
                 break;
