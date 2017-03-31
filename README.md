@@ -10,3 +10,4 @@
 5. ImageCache，Image加载和缓存：[ImageCache blog](http://vivianking6855.github.io/2017/02/22/Android-Bitmap-Cache/)
 6. FrescoDemo：[Facebook 图片库Fresco的使用](https://github.com/facebook/fresco)
 7. PerformanceDemo：[性能优化](http://vivianking6855.github.io/2017/02/27/Android-optimization-1-method/)
+8. AppUniform: App框架设计和重构
