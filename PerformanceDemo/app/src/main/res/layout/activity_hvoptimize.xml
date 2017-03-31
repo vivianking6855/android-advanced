@@ -16,46 +16,24 @@
             android:layout_width="@dimen/avatar_dimen"
             android:layout_height="@dimen/avatar_dimen"
             android:layout_margin="@dimen/avatar_layout_margin"
-            android:src="@drawable/card1" />
+            android:onClick="hideOffline" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        <include layout="@layout/offline" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/hello" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/offline" />
-        </LinearLayout>
     </LinearLayout>
 
 
     <!-- Version 2: uses a single RelativeLayout -->
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/avatar2"
             android:layout_width="@dimen/avatar_dimen"
             android:layout_height="@dimen/avatar_dimen"
             android:layout_margin="@dimen/avatar_layout_margin"
-            android:src="@drawable/card2" />
-
-        <TextView
-            android:id="@+id/hint"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/avatar2"
-            android:text="@string/hello" />
+            android:onClick="showOffline" />
 
         <ViewStub
             android:id="@+id/offline_view"
@@ -63,8 +41,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/avatar2"
-            android:inflatedId="@+id/rl_line2"
             android:layout="@layout/offline" />
 
     </RelativeLayout>
+
 </LinearLayout>
