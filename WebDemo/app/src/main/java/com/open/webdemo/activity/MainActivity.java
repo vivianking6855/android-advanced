@@ -9,6 +9,8 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.open.webdemo.R;
 import com.open.webdemo.engine.WebsiteEngine;
+import com.open.webdemo.entity.SearchEntity;
+import com.open.webdemo.entity.SearchEvent;
 import com.open.webdemo.entity.UrlConfigEvent;
 
 import org.greenrobot.eventbus.EventBus;
@@ -30,15 +32,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void okhttpClick(View view) {
-        WebsiteEngine.getInstance().getConfig();
+        //WebsiteEngine.getInstance().getConfig();
+        WebsiteEngine.getInstance().search();
     }
 
     public void retrofitClick(View view) {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onUrlConfigEvent(UrlConfigEvent event) {
-        mTVShow.setText(new Gson().toJson(event.mConfig.Default));
+    public void onMessageEvent(UrlConfigEvent event) {
+        mTVShow.setText(new Gson().toJson(event.mEntity.Default));
+        mTVShow.setMovementMethod(ScrollingMovementMethod.getInstance());
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(SearchEvent event) {
+        mTVShow.setText(new Gson().toJson(event.mEntityList));
         mTVShow.setMovementMethod(ScrollingMovementMethod.getInstance());
     }
 

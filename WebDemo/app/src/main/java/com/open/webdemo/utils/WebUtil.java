@@ -1,7 +1,9 @@
 package com.open.webdemo.utils;
 
 import java.io.IOException;
+import java.util.concurrent.Callable;
 
+import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -35,5 +37,13 @@ public class WebUtil {
         }
 
         return response;
+    }
+
+    public static void getAsyncOkHttp(String url, OkHttpClient client, Callback callback) {
+        Request request = new Request.Builder()
+                .url(url)//"http://publicobject.com/helloworld.txt"
+                .build();
+
+        client.newCall(request).enqueue(callback);
     }
 }

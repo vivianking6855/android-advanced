@@ -5,9 +5,9 @@ package com.open.webdemo.entity;
  */
 
 public class UrlConfigEvent {
-    public UrlConfig mConfig;
+    public UrlConfig mEntity;
 
-    public UrlConfigEvent(UrlConfig config) {
-        mConfig = config;
+    public UrlConfigEvent(UrlConfig entity) {
+        mEntity = entity;
     }
 }
