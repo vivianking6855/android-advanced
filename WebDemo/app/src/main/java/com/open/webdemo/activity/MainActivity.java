@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.open.webdemo.R;
 import com.open.webdemo.engine.WebsiteEngine;
-import com.open.webdemo.entity.SearchEntity;
 import com.open.webdemo.entity.SearchEvent;
 import com.open.webdemo.entity.UrlConfigEvent;
 
