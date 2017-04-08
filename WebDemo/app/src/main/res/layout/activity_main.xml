@@ -11,14 +11,23 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="okhttpClick"
-        android:text="Okhttp"
+        android:onClick="okhttpConfigClick"
+        android:text="Okhttp Config"
         android:textSize="20dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
+        android:onClick="okhttpSearchClick"
+        android:text="Okhttp Search"
+        android:textSize="20dp" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:onClick="retrofitClick"
         android:text="Retrofit"
         android:textSize="20dp" />

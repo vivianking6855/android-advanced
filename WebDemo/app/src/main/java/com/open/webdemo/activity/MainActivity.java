@@ -31,8 +31,11 @@ public class MainActivity extends AppCompatActivity {
         mTVShow = (TextView) findViewById(R.id.tv_show);
     }
 
-    public void okhttpClick(View view) {
-        //WebsiteEngine.getInstance().getConfig();
+    public void okhttpConfigClick(View view) {
+        WebsiteEngine.getInstance().getConfig();
+    }
+
+    public void okhttpSearchClick(View view) {
         WebsiteEngine.getInstance().search();
     }
 

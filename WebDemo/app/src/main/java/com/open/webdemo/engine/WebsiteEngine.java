@@ -11,7 +11,6 @@ import com.open.webdemo.entity.SearchEvent;
 import com.open.webdemo.entity.UrlConfig;
 import com.open.webdemo.entity.UrlConfigEvent;
 import com.open.webdemo.utils.Const;
-import com.open.webdemo.utils.WebUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -21,6 +20,7 @@ import java.util.ArrayList;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.Response;
 
 /**
@@ -43,26 +43,34 @@ public class WebsiteEngine {
     }
 
     /**
-     * try call sync method WebUtil.getOkHttp
+     * call okhttp sync method
      */
     public void getConfig() {
-        Thread test = new Thread(new Runnable() {
+        Thread configThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    Response res = WebUtil.getOkHttp(Const.URL_CONFIG, mOkHttpClient);
-                    UrlConfig config = mGson.fromJson(res.body().charStream(), UrlConfig.class);
+                    Request request = new Request.Builder()
+                            .url(Const.URL_CONFIG)
+                            .build();
+
+                    Response response = mOkHttpClient.newCall(request).execute();
+                    if (!response.isSuccessful()) {
+                        Log.w(TAG, "getConfig failed " + response);
+                        return;
+                    }
+                    UrlConfig config = mGson.fromJson(response.body().charStream(), UrlConfig.class);
                     EventBus.getDefault().post(new UrlConfigEvent(config));
                 } catch (Exception ex) {
                     Log.w(TAG, "getConfig ex:", ex);
                 }
             }
         });
-        test.start();
+        configThread.start();
     }
 
     /**
-     * search call async WebUtil.getAsyncOkHttp
+     * call okhttp async
      * filter :
      * "/1.1/threadview/search?key=" + key + "&start=" + startPosition + "&limit=" + SEARCH_LIMIT + "&sortby=dateline&order=desc";
      */
@@ -71,7 +79,11 @@ public class WebsiteEngine {
         final String startpos = "&start=0";
         final String url = Const.URL_SEARCH + search_key + startpos + Const.URL_SEARCH_END;
 
-        WebUtil.getAsyncOkHttp(url, mOkHttpClient, new Callback() {
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        mOkHttpClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
             }
