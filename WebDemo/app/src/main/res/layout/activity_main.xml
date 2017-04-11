@@ -9,28 +9,28 @@
     tools:context="com.open.webdemo.activity.MainActivity">
 
     <TextView
+        style="@style/textStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="okhttpConfigClick"
-        android:text="Okhttp Config"
-        android:textSize="20dp" />
+        android:text="Okhttp Config" />
 
     <TextView
+        style="@style/textStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:onClick="okhttpSearchClick"
-        android:text="Okhttp Search"
-        android:textSize="20dp" />
+        android:text="Okhttp Search" />
 
 
     <TextView
+        style="@style/textStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:onClick="retrofitClick"
-        android:text="Retrofit"
-        android:textSize="20dp" />
+        android:text="Retrofit" />
 
     <TextView
         android:id="@+id/tv_show"
