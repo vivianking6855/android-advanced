@@ -10,13 +10,18 @@ import com.open.webdemo.R;
 import com.open.webdemo.engine.WebsiteEngine;
 import com.open.webdemo.entity.UrlConfig;
 
+import org.reactivestreams.Subscription;
+
 import io.reactivex.Observable;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
 
     private TextView mTVShow;
+
+    private Disposable mConfigDisposable;
 
     // website
     private Observable<UrlConfig> mConfigObservable;
@@ -30,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void okhttpConfigClick(View view) {
-        Observable.fromCallable(() -> WebsiteEngine.getInstance().getConfig()).subscribeOn(Schedulers.io())
+        mConfigDisposable = (Observable.fromCallable(() -> WebsiteEngine.getInstance().getConfig()).subscribeOn(Schedulers.io()))
                 .subscribe(urlConfig -> {
                             final String result = WebsiteEngine.getGson().toJson(urlConfig.Debug).toString();
                             Log.d(TAG, "" + result);
@@ -57,5 +62,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
 
+        if(mConfigDisposable != null && !mConfigDisposable.isDisposed()){
+            mConfigDisposable.dispose();
+        }
     }
 }

@@ -42,7 +42,7 @@ public class WebsiteEngine {
     }
 
     /**
-     * call okhttp sync method
+     * get config sync through okhttp
      */
     public UrlConfig getConfig() {
         try {
@@ -66,7 +66,7 @@ public class WebsiteEngine {
     }
 
     /**
-     * call okhttp async
+     * search sync through okhttp
      * filter :
      * "/1.1/threadview/search?key=" + key + "&start=" + startPosition + "&limit=" + SEARCH_LIMIT + "&sortby=dateline&order=desc";
      */
