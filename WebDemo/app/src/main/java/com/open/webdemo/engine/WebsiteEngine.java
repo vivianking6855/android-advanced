@@ -8,6 +8,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.open.webdemo.entity.SearchEntity;
 import com.open.webdemo.entity.UrlConfig;
+import com.open.webdemo.interfaces.IWebSiteService;
 import com.open.webdemo.utils.Const;
 
 import java.io.IOException;
@@ -16,6 +17,10 @@ import java.util.ArrayList;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by vivian on 2017/4/8.
@@ -72,8 +77,13 @@ public class WebsiteEngine {
      */
     public ArrayList<SearchEntity> search(String key) {
         try {
-            final String startpos = "&start=0";
-            final String url = Const.URL_SEARCH + key + startpos + Const.URL_SEARCH_END;
+            final int pos = 0;
+            final int limit = 5;
+            final String url = new StringBuilder(Const.URL_SEARCH_BASE)
+                    .append("search?key=" + key)
+                    .append("&start=" + pos)
+                    .append("&limit=" + limit)
+                    .append("&sortby=dateline&order=desc").toString();
 
             Request request = new Request.Builder()
                     .url(url)
@@ -98,6 +108,63 @@ public class WebsiteEngine {
             return list;
         } catch (Exception ex) {
             Log.w(TAG, "search ex:", ex);
+        }
+
+        return null;
+    }
+
+    /**
+     * get config sync through retrofit
+     */
+    public UrlConfig getConfigThroughRetrofit() {
+        try {
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(Const.URL_CONFIG_BASE)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+            IWebSiteService service = retrofit.create(IWebSiteService.class);
+            Call<UrlConfig> call = service.getUrlConfig();
+            return call.execute().body();
+        } catch (Exception ex) {
+            Log.w(TAG, "getConfigThroughRetrofit ex:", ex);
+        }
+
+        return null;
+    }
+
+    /**
+     * search sync through retrofit
+     * filter :
+     * "/1.1/threadview/search?key=" + key + "&start=" + startPosition + "&limit=" + SEARCH_LIMIT + "&sortby=dateline&order=desc";
+     */
+    public ArrayList<SearchEntity> searchThroughRetrofit(String key) {
+        try {
+            final int pos = 0;
+            final int limit = 5;
+
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(Const.URL_SEARCH_BASE)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+            IWebSiteService service = retrofit.create(IWebSiteService.class);
+            Call<ResponseBody> call = service.search(key, 0, 5, "dateline", "desc");
+
+            // parse array
+            JsonParser parser = new JsonParser();
+            JsonArray array = parser.parse(call.execute().body().string()).getAsJsonArray();
+            ArrayList<SearchEntity> list = new ArrayList<SearchEntity>();
+            if (array != null) {
+                for (JsonElement ele : array) {
+                    SearchEntity entity = mGson.fromJson(ele, SearchEntity.class);
+                    list.add(entity);
+                }
+            }
+
+            return list;
+        } catch (Exception ex) {
+            Log.w(TAG, "searchThroughRetrofit ex:", ex);
         }
 
         return null;

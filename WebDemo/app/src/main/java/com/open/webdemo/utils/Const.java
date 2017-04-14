@@ -8,9 +8,9 @@ final public class Const {
     // host
     public final static String URL_HOST = "http://zentalk.asus.com.cn:8888";
     // url config
-    public final static String URL_CONFIG = URL_HOST + "/1.0/urlconfig";
-    // search url
-    public final static int SEARCH_LIMIT = 5;
-    public final static String URL_SEARCH = URL_HOST + "/1.1/threadview/search?key=";
-    public final static String URL_SEARCH_END = "&limit=" + SEARCH_LIMIT + "&sortby=dateline&order=desc";
+    public final static String URL_CONFIG_BASE = "http://zentalk.asus.com.cn:8888/1.0/";
+    public final static String URL_CONFIG_EXTENDS = "urlconfig";
+    public final static String URL_CONFIG = URL_CONFIG_BASE + URL_CONFIG_EXTENDS;
+    // search url, params: search?key={key}&start={start}&limit={limit}&sortby=dateline&order=desc
+    public final static String URL_SEARCH_BASE = URL_HOST + "/1.1/threadview/";
 }

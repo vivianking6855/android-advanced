@@ -60,7 +60,31 @@ public class MainActivity extends AppCompatActivity {
         compositeDisposable.add(search);
     }
 
-    public void retrofitClick(View view) {
+    public void retrofitConfigClick(View view) {
+        Disposable disposable = Single.fromCallable(() -> WebsiteEngine.getInstance().getConfigThroughRetrofit())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(item -> {
+                            final String result = "" + WebsiteEngine.getGson().toJson(item).toString();
+                            Log.d(TAG, result);
+                            mTVShow.setText(result);
+                        },
+                        error -> Log.w(TAG, "retrofitConfigClick ex:", error));
+        compositeDisposable.add(disposable);
+    }
+
+    public void retrofitSearchClick(View view) {
+        final String search_key = "zenfone3";
+        Disposable disposable = Single.fromCallable(() -> WebsiteEngine.getInstance().searchThroughRetrofit(search_key))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(item -> {
+                            final String result = WebsiteEngine.getGson().toJson(item).toString();
+                            Log.d(TAG, "" + result);
+                            mTVShow.setText(result);
+                        },
+                        error -> Log.w(TAG, "retrofitSearchClick ex:", error));
+        compositeDisposable.add(disposable);
     }
 
     @Override

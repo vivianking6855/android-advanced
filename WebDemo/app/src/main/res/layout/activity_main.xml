@@ -9,37 +9,44 @@
     tools:context="com.open.webdemo.activity.MainActivity">
 
     <TextView
-        style="@style/textStyle"
+        style="@style/UserTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="okhttpConfigClick"
         android:text="Okhttp Config" />
 
     <TextView
-        style="@style/textStyle"
+        style="@style/UserTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:onClick="okhttpSearchClick"
         android:text="Okhttp Search" />
 
-
     <TextView
-        style="@style/textStyle"
+        style="@style/UserTextStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:onClick="retrofitClick"
-        android:text="Retrofit" />
+        android:onClick="retrofitConfigClick"
+        android:text="Retrofit Config" />
+
+    <TextView
+        style="@style/UserTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:onClick="retrofitSearchClick"
+        android:text="Retrofit Search" />
 
     <TextView
         android:id="@+id/tv_show"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:maxLines="10"
         android:scrollbars="vertical"
-        android:text="Show"
+        android:text="Show Result"
         android:textColor="@android:color/holo_orange_dark"
         android:textSize="20dp" />
 
