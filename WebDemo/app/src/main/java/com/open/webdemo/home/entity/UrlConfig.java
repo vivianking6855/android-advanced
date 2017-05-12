@@ -1,4 +1,4 @@
-package com.open.webdemo.entity;
+package com.open.webdemo.home.entity;
 
 import java.util.List;
 

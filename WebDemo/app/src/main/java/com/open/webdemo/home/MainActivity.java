@@ -1,4 +1,4 @@
-package com.open.webdemo.activity;
+package com.open.webdemo.home;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.open.webdemo.R;
-import com.open.webdemo.engine.WebsiteEngine;
+import com.open.webdemo.home.engine.WebsiteEngine;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;

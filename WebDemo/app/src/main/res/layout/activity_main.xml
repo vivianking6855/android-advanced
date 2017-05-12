@@ -6,7 +6,7 @@
     android:layout_margin="30dp"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context="com.open.webdemo.activity.MainActivity">
+    tools:context=".home.MainActivity">
 
     <TextView
         style="@style/UserTextStyle"

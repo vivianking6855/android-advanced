@@ -1,10 +1,8 @@
 package com.open.webdemo.interfaces;
 
-import com.open.webdemo.entity.SearchEntity;
-import com.open.webdemo.entity.UrlConfig;
+import com.open.webdemo.home.entity.SearchEntity;
+import com.open.webdemo.home.entity.UrlConfig;
 import com.open.webdemo.utils.Const;
-
-import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;

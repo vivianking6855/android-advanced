@@ -1,4 +1,4 @@
-package com.open.webdemo.engine;
+package com.open.webdemo.home.engine;
 
 import android.util.Log;
 
@@ -6,8 +6,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import com.open.webdemo.entity.SearchEntity;
-import com.open.webdemo.entity.UrlConfig;
+import com.open.webdemo.home.entity.SearchEntity;
+import com.open.webdemo.home.entity.UrlConfig;
 import com.open.webdemo.interfaces.IWebSiteService;
 import com.open.webdemo.utils.Const;
 
