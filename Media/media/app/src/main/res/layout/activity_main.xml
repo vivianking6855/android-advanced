@@ -12,21 +12,21 @@
         android:id="@+id/extract_media"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Extract Media"
+        android:text="分离视频"
         android:textSize="30dp" />
 
     <Button
         android:id="@+id/extract_audio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Extract Audio"
+        android:text="分离音频"
         android:textSize="30dp" />
 
     <Button
         android:id="@+id/combine_media"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Combine Media"
+        android:text="合成"
         android:textSize="30dp" />
 
 
