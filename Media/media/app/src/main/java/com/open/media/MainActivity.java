@@ -23,6 +23,7 @@ public class MainActivity extends BaseActivity {
 
     // permission request code
     private final static int PERMISSION_REQUEST_CODE_RECORD = 10000;
+    private boolean mPermissionShowing = false;
 
     @Override
     protected void initData() {
@@ -74,16 +75,21 @@ public class MainActivity extends BaseActivity {
     }
 
     private void showPermissionDlg() {
-        new AlertDialog.Builder(mContext)
-                .setTitle(getString(R.string.grant_permission_title))
-                .setMessage(getString(R.string.grant_permission))
-                .setPositiveButton(getString(R.string.grant_know), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                })
-                .show();
+        if (!mPermissionShowing) {
+            mPermissionShowing = true;
+            new AlertDialog.Builder(mContext)
+                    .setCancelable(false)
+                    .setTitle(getString(R.string.grant_permission_title))
+                    .setMessage(getString(R.string.grant_permission))
+                    .setPositiveButton(getString(R.string.grant_know), new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                            finish();
+                        }
+                    })
+                    .show();
+        }
     }
 
     @Override
