@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="20dp"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="com.open.media.MainActivity">
+
+    <Button
+        android:id="@+id/extract_media"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Extract Media"
+        android:textSize="30dp" />
+
+    <Button
+        android:id="@+id/extract_audio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Extract Audio"
+        android:textSize="30dp" />
+
+    <Button
+        android:id="@+id/combine_media"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Combine Media"
+        android:textSize="30dp" />
+
+
+</LinearLayout>
