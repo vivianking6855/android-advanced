@@ -5,6 +5,7 @@ import android.media.MediaCodec;
 import android.media.MediaExtractor;
 import android.media.MediaFormat;
 import android.media.MediaMuxer;
+import android.os.Environment;
 import android.util.Log;
 
 import com.open.media.MainActivity;
@@ -75,7 +76,7 @@ public class MediaUtil {
         return false;
     }
 
-    public boolean combineMedia(String inputVideoPath, String inputAudioPath, String outPath) {
+    public boolean combineMedia(String inputVideoPath, AssetFileDescriptor inputAudioPath, String outPath) {
         MediaExtractor videoExtractor = new MediaExtractor();
         MediaExtractor audioExtractor = new MediaExtractor();
         MediaMuxer mediaMuxer = null;
@@ -84,11 +85,14 @@ public class MediaUtil {
 
             // set data source
             videoExtractor.setDataSource(inputVideoPath);
+            //audioExtractor.setDataSource(inputAudioPath);
             audioExtractor.setDataSource(inputAudioPath);
 
             // get video or audio 取出视频或音频的信号
             int videoTrack = getTrack(videoExtractor, true);
             int audioTrack = getTrack(audioExtractor, false);
+            Log.d(TAG, "combineMedia audioTrack " + audioTrack);
+            Log.d(TAG, "combineMedia videoTrack " + videoTrack);
 
             // change to video oraudio track 切换道视频或音频信号的信道
             videoExtractor.selectTrack(videoTrack);
@@ -106,6 +110,8 @@ public class MediaUtil {
 
             return true;
         } catch (IOException e) {
+            Log.w(TAG, "combineMedia IOException", e);
+        } catch (Exception e) {
             Log.w(TAG, "combineMedia ex", e);
         } finally {
             try {
@@ -125,6 +131,56 @@ public class MediaUtil {
         }
 
         return false;
+    }
+
+    /**
+     * convert to acc if input is mp3 format
+     * mp3为audio/mpeg；aac为audio/mp4a-latm；mp4为video/mp4v-es
+     */
+    private boolean convertToAcc(MediaFormat trackFormat) {
+        try {
+            String mineType = trackFormat.getString(MediaFormat.KEY_MIME);
+            // video or audio track
+            if (mineType.startsWith("audio/mpeg")) {
+                // convert to acc
+                String SDCARD_PATH = Environment.getExternalStorageDirectory().getPath();
+
+                final AudioCodec audioCodec = AudioCodec.newInstance();
+                audioCodec.setEncodeType(MediaFormat.MIMETYPE_AUDIO_MPEG);
+                audioCodec.setIOPath(SDCARD_PATH + "/demo_audio.mp3", SDCARD_PATH + "/codec.aac");
+                audioCodec.prepare();
+                audioCodec.startAsync();
+                audioCodec.setOnCompleteListener(new AudioCodec.OnCompleteListener() {
+                    @Override
+                    public void completed() {
+                        audioCodec.release();
+                    }
+                });
+            }
+
+            return true;
+        } catch (Exception e) {
+            Log.w(TAG, "convertToAcc ex", e);
+        }
+
+        return false;
+    }
+
+    public void testConvert(){
+        // convert to acc
+        String SDCARD_PATH = Environment.getExternalStorageDirectory().getPath();
+
+        final AudioCodec audioCodec = AudioCodec.newInstance();
+        audioCodec.setEncodeType(MediaFormat.MIMETYPE_AUDIO_MPEG);
+        audioCodec.setIOPath(SDCARD_PATH + "/demo_audio.mp3", SDCARD_PATH + "/codec.aac");
+        audioCodec.prepare();
+        audioCodec.startAsync();
+        audioCodec.setOnCompleteListener(new AudioCodec.OnCompleteListener() {
+            @Override
+            public void completed() {
+                audioCodec.release();
+            }
+        });
     }
 
     private int prepareMediaInfo(MediaExtractor mediaExtractor, MediaMuxer mediaMuxer,
@@ -236,7 +292,7 @@ public class MediaUtil {
         mediaExtractor.readSampleData(byteBuffer, 0);
         long SecondVideoPTS = mediaExtractor.getSampleTime();
         long sampleTime = Math.abs(SecondVideoPTS - firstVideoPTS);
-        Log.d(TAG, "getSampleTime is " + sampleTime);
+        //Log.d(TAG, "getSampleTime is " + sampleTime);
 
         // 重新切换此信道，不然上面跳过了3帧,造成前面的帧数模糊
         mediaExtractor.unselectTrack(videoTrack);
