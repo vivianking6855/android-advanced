@@ -88,22 +88,22 @@ public class MainActivity extends BaseActivity {
     }
 
     private void dealWithPermission() {
-            int hasWriteStoragePermission = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-            if (hasWriteStoragePermission != PackageManager.PERMISSION_GRANTED) {
-                Log.d(TAG, "permission not granted");
-                // if user choose never show before, request system permission will not work
-                boolean never_show = !ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-                if (never_show) {
-                    Log.d(TAG, "user choose never show");
-                    showNeverShowHintDialogue();
-                } else {
-                    if (!mSystemPermissionShowing) {
-                        Log.d(TAG, "show system permission dialogue");
-                        // show system permission dialogue
-                        mSystemPermissionShowing = true;
-                        showSystemRequestDialog();
-                    }
+        int hasWriteStoragePermission = ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (hasWriteStoragePermission != PackageManager.PERMISSION_GRANTED) {
+            Log.d(TAG, "permission not granted");
+            // if user choose never show before, request system permission will not work
+            boolean never_show = !ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            if (never_show) {
+                Log.d(TAG, "user choose never show");
+                showNeverShowHintDialogue();
+            } else {
+                if (!mSystemPermissionShowing) {
+                    Log.d(TAG, "show system permission dialogue");
+                    // show system permission dialogue
+                    mSystemPermissionShowing = true;
+                    showSystemRequestDialog();
                 }
+            }
         }
     }
 
@@ -148,6 +148,7 @@ public class MainActivity extends BaseActivity {
             mNeverShowDlg.dismiss();
         }
         //Log.d(TAG, "onDestroy");
+
     }
 
 }
