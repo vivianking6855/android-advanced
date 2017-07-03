@@ -56,7 +56,12 @@ public class MainActivity extends BaseActivity {
         findViewById(R.id.combine_media).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //MediaUtil.getInstance().combineMedia(VIDEO_OUT_PATH, getResources().openRawResourceFd(R.raw.demo_audio), COMBINE_OUT_PATH);
+                MediaUtil.getInstance().combineMedia(VIDEO_OUT_PATH, AUDIO_OUT_PATH, COMBINE_OUT_PATH);
+            }
+        });
+        findViewById(R.id.combine_mp3).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 MediaUtil.getInstance().testConvert();
             }
         });

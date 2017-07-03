@@ -76,7 +76,7 @@ public class MediaUtil {
         return false;
     }
 
-    public boolean combineMedia(String inputVideoPath, AssetFileDescriptor inputAudioPath, String outPath) {
+    public boolean combineMedia(String inputVideoPath, String inputAudioPath, String outPath) {
         MediaExtractor videoExtractor = new MediaExtractor();
         MediaExtractor audioExtractor = new MediaExtractor();
         MediaMuxer mediaMuxer = null;
@@ -85,7 +85,6 @@ public class MediaUtil {
 
             // set data source
             videoExtractor.setDataSource(inputVideoPath);
-            //audioExtractor.setDataSource(inputAudioPath);
             audioExtractor.setDataSource(inputAudioPath);
 
             // get video or audio 取出视频或音频的信号
