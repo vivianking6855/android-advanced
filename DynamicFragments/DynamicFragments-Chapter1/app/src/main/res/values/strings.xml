@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">DynamicFragments</string>
+    <string name="dynamicUiTitle">dynamicUiTitle</string>
+    <string name="android4NewTitle">android4NewTitle</string>
+    <string name="dynamicUiDescription">dynamicUiDescriptiondynamicUiDescriptiondynamicUiDescription</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>

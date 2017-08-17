@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="bookDescriptions">
+        <item>Book 1111111111111111111</item>
+        <item>Book 2222222222222222222</item>
+    </string-array>
+</resources>
