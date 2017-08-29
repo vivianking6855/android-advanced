@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DynamicFragments</string>
+    <string name="app_name">FragmentTransaction Demo</string>
     <!-- Book Titles -->
     <string name="dynamicUiTitle">dynamicUiTitle</string>
     <string name="android4NewTitle">android4NewTitle</string>

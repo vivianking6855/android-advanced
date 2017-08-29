@@ -1,24 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <!-- List of Book Titles ** using the ListFragment **-->
     <fragment
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:id="@+id/fragmentTitles"
         android:name="com.open.dynamicfragments.BookListFragment"
-        android:id="@+id/fragmentTitles"/>
-
-    <!-- Description of selected book -->
-    <fragment
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:name="com.open.dynamicfragments.BookDescFragment"
-        android:id="@+id/fragmentDescription"/>
+        android:layout_weight="1" />
 
 </LinearLayout>
