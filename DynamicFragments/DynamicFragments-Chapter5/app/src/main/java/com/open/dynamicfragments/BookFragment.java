@@ -13,9 +13,8 @@ import android.widget.TextView;
  * Book Fragment.
  */
 public class BookFragment extends Fragment {
-    public static final String BOOK_TITLE = "title";
-    public static final String TOP_IMAGE = "image";
-    public static final String BOOK_DESCRIPTIONS = "des";
+    private static final String BOOK_TITLE = "title";
+    private static final String BOOK_DESCRIPTIONS = "des";
 
     private ImageView imageView;
     private TextView title;
@@ -23,6 +22,19 @@ public class BookFragment extends Fragment {
 
     public BookFragment() {
         // Required empty public constructor
+    }
+
+    /**
+     * Returns a new instance of this fragment for the given section
+     * number.
+     */
+    public static BookFragment newInstance(String title, String des) {
+        BookFragment fragment = new BookFragment();
+        Bundle args = new Bundle();
+        args.putString(BOOK_TITLE, title);
+        args.putString(BOOK_DESCRIPTIONS, des);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
@@ -46,10 +58,10 @@ public class BookFragment extends Fragment {
         title = (TextView) viewHierarchy.findViewById(R.id.tv_title);
         des = (TextView) viewHierarchy.findViewById(R.id.tv_des);
         if (getArguments() != null) {
-            imageView.setImageResource(getArguments().getInt(TOP_IMAGE));
             title.setText(getArguments().getString(BOOK_TITLE));
             des.setText(getArguments().getString(BOOK_DESCRIPTIONS));
         }
+        imageView.setImageResource(R.drawable.book);
     }
 
 }

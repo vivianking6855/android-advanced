@@ -16,12 +16,4 @@
         <item>@string/androidEngineDescription</item>
         <item>@string/androidDbProgDescription</item>
     </string-array>
-    <!-- Book Images -->
-    <integer-array name="bookImages">
-        <item>@drawable/book</item>
-        <item>@drawable/book</item>
-        <item>@drawable/book</item>
-        <item>@drawable/book</item>
-        <item>@drawable/book</item>
-    </integer-array>
 </resources>
