@@ -1,9 +1,8 @@
 package com.open.templatebasic.fragment;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,18 +14,17 @@ import com.open.templatebasic.R;
  * first fragment.
  */
 public class FirstFragment extends Fragment {
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private final static String TAG = "FirstFragment";
+    private static final String ARG_PARAM = "param";
 
     public FirstFragment() {
     }
 
-    public static FirstFragment newInstance(String param1, String param2) {
+    public static FirstFragment newInstance(String param) {
+        Log.d(TAG, "FirstFragment newInstance: " + param);
         FirstFragment fragment = new FirstFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_PARAM, param);
         fragment.setArguments(args);
         return fragment;
     }
@@ -45,8 +43,9 @@ public class FirstFragment extends Fragment {
     private void initView(View viewHierarchy) {
         Bundle args = getArguments();
         if (args != null) {
-            TextView content = (TextView)viewHierarchy.findViewById(R.id.content);
-            content.setText(args.getString(ARG_PARAM1));
+            TextView content = (TextView) viewHierarchy.findViewById(R.id.content);
+            String builder = "ARG_PARAM: " + args.getString(ARG_PARAM);
+            content.setText(builder);
         }
     }
 

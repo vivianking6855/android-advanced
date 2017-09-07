@@ -38,10 +38,10 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        firstFragment = FirstFragment.newInstance("param1", "param2");
-        secondFragment = SecondFragment.newInstance("param1", "param2");
-        thirdFragment = ThirdFragment.newInstance("param1", "param2");
-        fourthFragment = FourthFragment.newInstance("param1", "param2");
+        firstFragment = FirstFragment.newInstance("firstFragment");
+        secondFragment = SecondFragment.newInstance("secondFragment");
+        thirdFragment = ThirdFragment.newInstance("thirdFragment");
+        fourthFragment = FourthFragment.newInstance("fourthFragment");
     }
 
     @Override
