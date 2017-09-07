@@ -1,6 +1,5 @@
 # Android进阶开发Demo说明
 
-
 - IPC，跨进程通信：[IPC进程间通信 blog](http://vivianking6855.github.io/2017/01/23/Android-IPC/)
 - RemoteViews：[RemoteViews blog](http://vivianking6855.github.io/2017/01/24/Android-Nano-Tips-12-RemoteViews/)
 - MessageDemo，Android Message机制：[Android Message blog](http://vivianking6855.github.io/2017/02/14/Android-Message/)
