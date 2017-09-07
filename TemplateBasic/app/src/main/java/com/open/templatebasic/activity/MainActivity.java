@@ -1,7 +1,6 @@
 package com.open.templatebasic.activity;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -9,8 +8,10 @@ import android.view.MenuItem;
 
 import com.open.templatebasic.R;
 import com.open.templatebasic.adapter.HomePagerAdapter;
+import com.open.templatebasic.fragment.FourthFragment;
 import com.open.templatebasic.fragment.FristFragment;
 import com.open.templatebasic.fragment.SecondFragment;
+import com.open.templatebasic.fragment.ThirdFragment;
 import com.open.templatebasic.utils.BottomNavigationViewHelper;
 
 public class MainActivity extends BaseActivity {
@@ -19,10 +20,16 @@ public class MainActivity extends BaseActivity {
     // fragment
     private FristFragment firstFragment;
     private SecondFragment secondFragment;
-    private int mCurrentId; // current page id
+    private ThirdFragment thirdFragment;
+    private FourthFragment fourthFragment;
+
+    // bottom navigation
+    private BottomNavigationView bottomNavigationView;
+    private MenuItem currentItem; // current menu item
 
     // adapter
     private ViewPager mViewPager;
+    private final static boolean allowScroll = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +40,8 @@ public class MainActivity extends BaseActivity {
     protected void initData() {
         firstFragment = FristFragment.newInstance("param1", "param2");
         secondFragment = SecondFragment.newInstance("param1", "param2");
-        mCurrentId = R.id.navigation_fist;
+        thirdFragment = ThirdFragment.newInstance("param1", "param2");
+        fourthFragment = FourthFragment.newInstance("param1", "param2");
     }
 
     @Override
@@ -41,9 +49,9 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
 
         // bottom navigation
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        BottomNavigationViewHelper.disableShiftMode(navigation);
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> dealBottomItemSelected(item.getItemId()));
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
 
         initViewPager();
     }
@@ -52,6 +60,9 @@ public class MainActivity extends BaseActivity {
         HomePagerAdapter mPagerAdapter = new HomePagerAdapter(getSupportFragmentManager(), this);
         mPagerAdapter.addFragment(firstFragment);
         mPagerAdapter.addFragment(secondFragment);
+        mPagerAdapter.addFragment(thirdFragment);
+        mPagerAdapter.addFragment(fourthFragment);
+
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
         mViewPager.setAdapter(mPagerAdapter);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -62,7 +73,13 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-
+                if (currentItem != null) {
+                    currentItem.setChecked(false);
+                } else {
+                    bottomNavigationView.getMenu().getItem(0).setChecked(false);
+                }
+                bottomNavigationView.getMenu().getItem(position).setChecked(true);
+                currentItem = bottomNavigationView.getMenu().getItem(position);
             }
 
             @Override
@@ -71,51 +88,40 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        // disable viewpage scroll
-//        mViewPager.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                return true;
-//            }
-//        });
+        // disable viewpager scroll
+        mViewPager.setOnTouchListener((v, event) -> !allowScroll);
     }
 
     @Override
     protected void loadData() {
-
+        currentItem = bottomNavigationView.getMenu().getItem(0);
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            // current id pretreatment
-            int current = item.getItemId();
-            if (current == mCurrentId) {
-                Log.d(TAG, "onNavigationItemSelected not changed");
-                return false;
-            }
-            mCurrentId = current;
-
-            switch (current) {
-                case R.id.navigation_fist:
-                    mViewPager.setCurrentItem(0);
-                    return true;
-                case R.id.navigation_second:
-                    mViewPager.setCurrentItem(1);
-                    return true;
-                case R.id.navigation_third:
-                    mViewPager.setCurrentItem(1);
-                    return true;
-                case R.id.navigation_fourth:
-                    mViewPager.setCurrentItem(1);
-                    return true;
-            }
-
+    private boolean dealBottomItemSelected(int itemId) {
+        // current id pretreatment
+        if (itemId == currentItem.getItemId()) {
+            Log.d(TAG, "onNavigationItemSelected not changed");
             return false;
         }
-    };
+        // reset current item
+        currentItem = bottomNavigationView.getMenu().findItem(itemId);
+        // set viewpager item
+        switch (itemId) {
+            case R.id.navigation_fist:
+                mViewPager.setCurrentItem(0);
+                return true;
+            case R.id.navigation_second:
+                mViewPager.setCurrentItem(1);
+                return true;
+            case R.id.navigation_third:
+                mViewPager.setCurrentItem(2);
+                return true;
+            case R.id.navigation_fourth:
+                mViewPager.setCurrentItem(3);
+                return true;
+        }
 
+        return false;
+    }
 
 }
