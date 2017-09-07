@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import com.open.templatebasic.R;
 import com.open.templatebasic.adapter.HomePagerAdapter;
 import com.open.templatebasic.fragment.FourthFragment;
-import com.open.templatebasic.fragment.FristFragment;
+import com.open.templatebasic.fragment.FirstFragment;
 import com.open.templatebasic.fragment.SecondFragment;
 import com.open.templatebasic.fragment.ThirdFragment;
 import com.open.templatebasic.utils.BottomNavigationViewHelper;
@@ -18,7 +18,7 @@ public class MainActivity extends BaseActivity {
     private final static String TAG = "MainActivity";
 
     // fragment
-    private FristFragment firstFragment;
+    private FirstFragment firstFragment;
     private SecondFragment secondFragment;
     private ThirdFragment thirdFragment;
     private FourthFragment fourthFragment;
@@ -38,7 +38,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        firstFragment = FristFragment.newInstance("param1", "param2");
+        firstFragment = FirstFragment.newInstance("param1", "param2");
         secondFragment = SecondFragment.newInstance("param1", "param2");
         thirdFragment = ThirdFragment.newInstance("param1", "param2");
         fourthFragment = FourthFragment.newInstance("param1", "param2");
