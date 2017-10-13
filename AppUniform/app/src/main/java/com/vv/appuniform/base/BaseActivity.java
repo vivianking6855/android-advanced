@@ -1,4 +1,4 @@
-package com.vv.appuniform.activity;
+package com.vv.appuniform.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,10 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 
 /**
  * @author vivian
- * BaseActivity used for project refactoring
- * initData
- * initView
- * loadData
+ *         BaseActivity used for project refactoring
+ *         initData
+ *         initView
+ *         loadData
  */
 public abstract class BaseActivity extends AppCompatActivity {
 

@@ -3,6 +3,7 @@ package com.vv.appuniform.activity;
 import android.os.Bundle;
 
 import com.vv.appuniform.R;
+import com.vv.appuniform.base.BaseActivity;
 
 public class MainActivity extends BaseActivity {
 
