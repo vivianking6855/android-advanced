@@ -9,11 +9,13 @@ package com.vv.cache.cache;
 public enum GlobalManager {
     INSTANCE;
 
-    public void initGlobal(){
+    public int mDataCount;
+
+    public void init(){
 
     }
 
-    public void releaseGlobal(){
+    public void release(){
 
     }
 }

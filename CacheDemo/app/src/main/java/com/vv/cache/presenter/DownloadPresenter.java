@@ -3,12 +3,12 @@ package com.vv.cache.presenter;
 import android.content.Context;
 import android.util.Log;
 
+import com.open.utislib.cache.DiskLruCacheUtils;
+import com.vv.cache.cache.GlobalManager;
+import com.vv.cache.cache.LruCacheManager;
 import com.vv.cache.listener.IDownloadListener;
 import com.vv.cache.model.DataApi;
 import com.vv.cache.model.DataModel;
-import com.vv.cache.utils.DiskLruCacheUtils;
-
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
@@ -49,15 +49,17 @@ public class DownloadPresenter {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(data -> {
-                            Log.d(TAG, "loadData Success: " + StringUtils.join(data.toArray(), ","));
+                            //Log.d(TAG, "loadData Success: " + StringUtils.join(data.toArray(), ","));
                             if (mListener != null) {
                                 mListener.OnLoadSuccess(data);
                             }
 
-                            // add to lru cache
-
                             // add to disk cache
                             cacheToDisk(data);
+                            // add to lru cache
+                            cacheToLru(data);
+
+                            GlobalManager.INSTANCE.mDataCount = data.size();
                         },
                         error -> {
                             Log.w(TAG, "loadData error: ", error);
@@ -75,8 +77,10 @@ public class DownloadPresenter {
         }
     }
 
-    private void cacheToLru() {
-
+    private void cacheToLru(List<DataModel> list) {
+        for (DataModel data : list) {
+            LruCacheManager.INSTANCE.getLruCache(mContext).put(data.id, data.description);
+        }
     }
 
     public String getFromDiskCache(String key) {
@@ -84,12 +88,17 @@ public class DownloadPresenter {
     }
 
     public String getFromLruCache(String key) {
-
-        return "";
+        return LruCacheManager.INSTANCE.getLruCache(mContext).get(key);
     }
 
     public String getFromCache(String key) {
-        return "";
+        String str = getFromLruCache(key);
+        if (str != null) {
+            Log.d(TAG,"getFromCache is from lru cache");
+            return str;
+        }
+        Log.d(TAG,"getFromCache is from disk lru cache");
+        return getFromDiskCache(key);
     }
 
     public void destroy() {

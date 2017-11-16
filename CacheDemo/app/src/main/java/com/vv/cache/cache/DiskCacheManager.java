@@ -5,8 +5,9 @@ import android.content.Context;
 import android.util.Log;
 
 import com.jakewharton.disklrucache.DiskLruCache;
-import com.vv.cache.utils.AppUtils;
-import com.vv.cache.utils.PathUtils;
+import com.open.utislib.base.AppUtils;
+import com.open.utislib.file.FileUtils;
+import com.open.utislib.file.PathUtils;
 
 import java.io.IOException;
 
@@ -15,26 +16,22 @@ import java.io.IOException;
  * cache manager
  */
 public enum DiskCacheManager {
-    /**
-     * Instance cache manager.
-     */
     INSTANCE;
 
-    private final String TAG = "DiskCacheManager";
+    private final String TAG = DiskCacheManager.class.getSimpleName();
 
     // disk cache
     private DiskLruCache mDiskLruCache;
     // disk cache directory
-    private static final String DISK_CACHE_PATH = "diskcachefile";
+    private static final String DISK_CACHE_PATH = "diskcache";
     // disk cache max size
     private static final int DISK_MAX_SIZE = 10 * 1024 * 1024;
 
-    public void initDiskCacheManager(Context context) {
-        // create disk cache path
-        PathUtils.createDir(PathUtils.getDiskCacheDir(context.getApplicationContext(), DISK_CACHE_PATH));
+    public void init(Context context) {
+
     }
 
-    public void releaseDiskCacheManager() {
+    public void release() {
         closeDiskLruCache();
     }
 
@@ -44,11 +41,15 @@ public enum DiskCacheManager {
      * @param context the context
      * @return the disk lru cache
      */
-    public synchronized DiskLruCache getDiskLruCache(Context context) {
+    public DiskLruCache getDiskLruCache(Context context) {
         try {
             if (mDiskLruCache == null) {
+                // create disk cache path
+                FileUtils.createOrExistsDir(PathUtils.getDiskCacheDir(context.getApplicationContext(), DISK_CACHE_PATH));
+                // open DiskLruCache
                 mDiskLruCache = DiskLruCache.open(PathUtils.getDiskCacheDir(context.getApplicationContext(), DISK_CACHE_PATH),
                         AppUtils.getAppVersionCode(context), 1, DISK_MAX_SIZE);
+                Log.d(TAG, "mDiskLruCache path " + mDiskLruCache.getDirectory().getPath());
             }
         } catch (IOException e) {
             Log.w(TAG, "getDiskCache ex ", e);
@@ -67,7 +68,7 @@ public enum DiskCacheManager {
      * 比较标准的做法就是在Activity的onPause()方法中去调用一次flush()方法就可以了
      * </p>
      */
-    public synchronized void flushDiskLruCache() {
+    public void flushDiskLruCache() {
         try {
             if (mDiskLruCache != null) {
                 mDiskLruCache.flush();
@@ -82,7 +83,7 @@ public enum DiskCacheManager {
      * 其实只需要调用一下DiskLruCache的delete()方法就可以实现了。
      * 会删除包括日志文件在内的所有文件
      */
-    public synchronized void clearDiskLruCache() {
+    public void clearDiskLruCache() {
         try {
             mDiskLruCache.delete();
         } catch (IOException e) {
@@ -96,7 +97,7 @@ public enum DiskCacheManager {
      * 关闭掉了之后就不能再调用DiskLruCache中任何操作缓存数据的方法，
      * 通常只应该在Activity的onDestroy()方法中去调用close()方法。
      */
-    public synchronized void closeDiskLruCache() {
+    public void closeDiskLruCache() {
         try {
             if (mDiskLruCache != null) {
                 mDiskLruCache.close();
@@ -105,6 +106,5 @@ public enum DiskCacheManager {
             Log.w(TAG, "flushDiskLruCache ex ", e);
         }
     }
-
 
 }

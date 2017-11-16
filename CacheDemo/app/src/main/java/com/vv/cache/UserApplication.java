@@ -3,9 +3,9 @@ package com.vv.cache;
 import android.app.Application;
 import android.content.res.Configuration;
 
+import com.vv.cache.cache.CacheManager;
 import com.vv.cache.cache.DiskCacheManager;
 import com.vv.cache.cache.GlobalManager;
-import com.vv.cache.utils.DiskLruCacheUtils;
 
 /**
  * Created by vivian on 2017/11/13.
@@ -35,9 +35,8 @@ public class UserApplication extends Application {
         super.onCreate();
 
         // init cache
-        GlobalManager.INSTANCE.initGlobal();
-        DiskCacheManager.INSTANCE.initDiskCacheManager(this);
-        DiskLruCacheUtils.setDiskLruCache(DiskCacheManager.INSTANCE.getDiskLruCache(this));
+        GlobalManager.INSTANCE.init();
+        CacheManager.INSTANCE.init(this);
     }
 
     /**
@@ -48,8 +47,8 @@ public class UserApplication extends Application {
     public void onTerminate() {
         super.onTerminate();
 
-        GlobalManager.INSTANCE.releaseGlobal();
-        DiskCacheManager.INSTANCE.releaseDiskCacheManager();
+        GlobalManager.INSTANCE.release();
+        CacheManager.INSTANCE.release();
     }
 
     /**

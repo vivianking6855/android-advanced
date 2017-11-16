@@ -12,4 +12,9 @@ public class DataModel {
         this.id = id;
         description = des;
     }
+
+    @Override
+    public String toString() {
+        return "id:" + id + ", description:" + description;
+    }
 }
