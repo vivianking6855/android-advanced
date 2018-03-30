@@ -10,7 +10,7 @@
 
 - 重构优化的目录结构
 
-    ![](https://i.imgur.com/zbW9vDL.png)
+   ![](https://i.imgur.com/9f3OrIV.jpg)
 
 - MVP架构
 - 默认搭载常用库
