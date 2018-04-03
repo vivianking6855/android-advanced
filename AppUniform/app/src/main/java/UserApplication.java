@@ -1,28 +1,11 @@
 import android.app.Application;
 import android.content.res.Configuration;
 
-import com.vv.appuniform.cache.CacheManager;
-import com.vv.appuniform.cache.GlobalManager;
-
 /**
  * Created by vivian on 2017/11/13.
  * User customized Application
  */
 public class UserApplication extends Application {
-    private UserApplication mInstance;
-
-    /**
-     * single instance
-     *
-     * @return instance
-     */
-    public UserApplication getInstance() {
-        if (mInstance == null) {
-            return new UserApplication();
-        }
-        return mInstance;
-    }
-
     /**
      * 在创建应用程序时调用，可以在这里实例化应用程序的单例，
      * 创建和实例化任何应用程序状态变量或共享资源等
