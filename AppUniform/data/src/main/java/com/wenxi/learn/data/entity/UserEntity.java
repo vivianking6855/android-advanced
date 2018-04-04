@@ -3,8 +3,8 @@ package com.wenxi.learn.data.entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class UserEntity implements Parcelable{
-    private int userId;
+public class UserEntity implements Parcelable {
+    public String userId;
 
     @Override
     public int describeContents() {
@@ -13,14 +13,15 @@ public class UserEntity implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.userId);
+        dest.writeString(this.userId);
     }
 
-    public UserEntity() {
+    public UserEntity(String id) {
+        userId = id;
     }
 
     protected UserEntity(Parcel in) {
-        this.userId = in.readInt();
+        this.userId = in.readString();
     }
 
     public static final Creator<UserEntity> CREATOR = new Creator<UserEntity>() {

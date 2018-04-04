@@ -17,9 +17,9 @@ package com.vv.appuniform.exception;
 
 import android.content.Context;
 
-import com.fernandocejas.android10.sample.data.exception.NetworkConnectionException;
-import com.fernandocejas.android10.sample.data.exception.UserNotFoundException;
-import com.fernandocejas.android10.sample.presentation.R;
+import com.vv.appuniform.R;
+import com.wenxi.learn.data.exception.NetworkConnectionException;
+import com.wenxi.learn.data.exception.UserNotFoundException;
 
 /**
  * Factory used to create error messages from an Exception as a condition.
@@ -33,7 +33,7 @@ public class ErrorMessageFactory {
     /**
      * Creates a String representing an error message.
      *
-     * @param context Context needed to retrieve string resources.
+     * @param context   Context needed to retrieve string resources.
      * @param exception An exception used as a condition to retrieve the correct error message.
      * @return {@link String} an error message.
      */

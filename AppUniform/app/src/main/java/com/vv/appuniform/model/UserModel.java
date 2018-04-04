@@ -4,7 +4,7 @@ package com.vv.appuniform.model;
  * The type User model.
  */
 public class UserModel {
-    private final int userId;
+    private final String userId;
     private String coverUrl;
     private String fullName;
     private String description;
@@ -14,7 +14,7 @@ public class UserModel {
      *
      * @param userId the user id
      */
-    public UserModel(int userId) {
+    public UserModel(String userId) {
         this.userId = userId;
     }
 
@@ -23,7 +23,7 @@ public class UserModel {
      *
      * @return the user id
      */
-    public int getUserId() {
+    public String getUserId() {
         return userId;
     }
 

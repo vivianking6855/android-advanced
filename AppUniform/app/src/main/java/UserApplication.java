@@ -1,6 +1,9 @@
 import android.app.Application;
 import android.content.res.Configuration;
 
+import com.wenxi.learn.data.cache.CacheManager;
+import com.wenxi.learn.data.cache.GlobalManager;
+
 /**
  * Created by vivian on 2017/11/13.
  * User customized Application

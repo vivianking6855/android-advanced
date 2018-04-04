@@ -13,15 +13,31 @@ import android.support.annotation.Nullable;
  * @param <T> the type parameter
  */
 public abstract class BaseMVPActivity<V, T extends BasePresenter<V>> extends BaseActivity {
-    protected T mPresenter; // presenter
+    /**
+     * The presenter P in MPV
+     */
+    protected T mPresenter;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         // create presenter
         mPresenter = createPresenter();
         mPresenter.attachReference((V) this);
+
+        super.onCreate(savedInstanceState);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.detachReference();
+    }
+
+    /**
+     * Create presenter t that extends {@link BasePresenter}
+     *
+     * @return the t
+     */
     protected abstract T createPresenter();
 }
