@@ -20,9 +20,11 @@ public class MainActivity extends AppCompatActivity {
     private TextView mResult;
     private Button mBtnLoad;
 
-    private final static String PLUGIN_NAME = "demo.jar";
+    private final static String PLUGIN_NAME = "demodex.jar";
     private final static String PLUGIN_CLASS = "com.wenxi.learn.demoplugin.DataChange";
     private Class<?> mDexClazz;
+    private File dexOutputDir;
+    private File pluginFile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,34 +40,38 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        loadPlugin();
+        initPlugin();
     }
 
-    private void loadPlugin() {
-        // get plugin aar that include class.dex
-        final File plugin =
+    private void initPlugin() {
+        // optimizedDirectory
+        dexOutputDir = getDir("dex", 0);
+
+        // get plugin jar file that include class.dex
+        pluginFile =
                 new File(PathUtils.getDiskCacheDir(this) + File.separator + PLUGIN_NAME);
 
         // make sure you have permission for target path
-        Log.d(TAG, "plugin.canRead = " + plugin.canRead());
-
-        if (!plugin.exists()) {
+        Log.d(TAG, "plugin.canRead = " + pluginFile.canRead());
+        if (!pluginFile.exists()) {
             Log.w(TAG, PLUGIN_NAME + " not exists");
             return;
         }
 
-        Log.w(TAG, "dexPath = " +  plugin.getAbsolutePath());
-        Log.w(TAG, "optimizedDirectory = " +  getExternalCacheDir().getAbsolutePath());
+        Log.w(TAG, "dexPath = " + pluginFile.getAbsolutePath());
+        Log.w(TAG, "optimizedDirectory = " + dexOutputDir.getAbsolutePath());
+    }
 
+    private void loadPlugin() {
         DexClassLoader dexClassLoader =
-                new DexClassLoader(plugin.getAbsolutePath(), getExternalCacheDir().getAbsolutePath(), null, getClassLoader());
+                new DexClassLoader(pluginFile.getAbsolutePath(), dexOutputDir.getAbsolutePath(), null, getClassLoader());
         try {
             // load DataChange
             mDexClazz = dexClassLoader.loadClass(PLUGIN_CLASS);
             // change to target IChange, please make sure it must has same package name withe aar
-            //IChange change = (IChange) clazz.newInstance();
-           // mResult.setText(change.start());
-            //Log.d(TAG, "result = " + change.start());
+            IChange change = (IChange) mDexClazz.newInstance();
+            mResult.setText(change.start());
+            Log.d(TAG, "result = " + change.start());
         } catch (ClassNotFoundException e) {
             Log.w(TAG, "ClassNotFoundException ex", e);
         } catch (Exception e) {
