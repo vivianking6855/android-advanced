@@ -56,6 +56,7 @@ public class TestString {
 
                     // 2. dynamic combine test
                     badDynamic();
+                    normalDynamic();
                     goodDynamic();
 
                     Log.d(TAG, "testStringPerformance END====================================");
@@ -70,17 +71,34 @@ public class TestString {
     private static void badDynamic() {
         long lastTimeNanos = System.nanoTime();
         final int LOOP = 1000;
-        String dynamic_temp = null;
+        String dynamic_temp = "";
         for (int i = 0; i < LOOP; i++) {
             if (StateMan.sStop) {
                 return;
             }
-            dynamic_temp += "test" + i + TEST_STR;
+            dynamic_temp += "test_" + i + TEST_STR;
         }
 
         Log.d(TAG, "badDynamic " + dynamic_temp);
 
         Log.d(TAG, diff("[badDynamic]", lastTimeNanos));
+    }
+
+    private static void normalDynamic() {
+        long lastTimeNanos = System.nanoTime();
+        final int LOOP = 1000;
+        StringBuilder stringBuilder = new StringBuilder(1000);
+        for (int i = 0; i < LOOP; i++) {
+            if (StateMan.sStop) {
+                return;
+            }
+            stringBuilder.append("test" + i + TEST_STR);
+        }
+
+        Log.d(TAG, stringBuilder.toString());
+        Log.d(TAG, "normalDynamic capacity " + stringBuilder.capacity());
+
+        Log.d(TAG, diff("[normalDynamic]", lastTimeNanos));
     }
 
     private static void goodDynamic() {
@@ -96,14 +114,13 @@ public class TestString {
             evalue_len += strList[i].length();
         }
 
-        Log.d(TAG, "goodDynamic " + evalue_len);
         StringBuilder stringBuilder = new StringBuilder(evalue_len);
         for (int i = 0; i < LOOP; i++) {
             stringBuilder.append(strList[i]);
         }
         strList = null;
-        Log.d(TAG, "goodDynamic " + stringBuilder.capacity());
         Log.d(TAG, stringBuilder.toString());
+        Log.d(TAG, "goodDynamic capacity " + stringBuilder.capacity());
 
         Log.d(TAG, diff("[goodDynamic]", lastTimeNanos));
     }
