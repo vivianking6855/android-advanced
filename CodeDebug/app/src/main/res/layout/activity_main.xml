@@ -1,15 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_demo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Test" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
 
-</LinearLayout>
+        <Button
+            android:id="@+id/tv_stop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:onClick="stopAll"
+            android:text="Stop All"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/tv_churn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:onClick="testMethodChurn"
+            android:text="Memory Churn"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/tv_string"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:onClick="testStringPerformance"
+            android:text="StringPerformance"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/tv_demo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:onClick="testMethodTimeConsume"
+            android:text="testTimeConsume"
+            android:textSize="20dp" />
+
+        <Button
+            android:id="@+id/tv_leak"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:onClick="testMemoryLeak"
+            android:text="testMemoryLeak"
+            android:textSize="20dp" />
+
+    </LinearLayout>
+
+</ScrollView>

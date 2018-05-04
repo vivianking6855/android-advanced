@@ -7,21 +7,22 @@ import android.util.Log;
 
 import java.util.concurrent.TimeUnit;
 
-import static com.debug.lib.CodeDebugConst.CODE_DEBUG;
-import static com.debug.lib.CodeDebugConst.ENABLE_MODULE;
-import static com.debug.lib.CodeDebugConst.ENABLE_TIME_DEBUG;
-import static com.debug.lib.CodeDebugConst.TAG;
+import static com.debug.lib.DebugMan.CODE_DEBUG;
+import static com.debug.lib.DebugMan.ENABLE_MODULE;
+import static com.debug.lib.DebugMan.ENABLE_TIME_DEBUG;
+import static com.debug.lib.DebugMan.TAG;
 
 /**
  * The type Time cost util.
  */
-public class LaunchTimeUtil {
+@SuppressWarnings("ALL")
+public class DebugTimeMan {
     private long lastTimeNanos;
     private long currentTimeNanos;
 
-    private static volatile LaunchTimeUtil instance;
+    private static volatile DebugTimeMan instance;
 
-    private LaunchTimeUtil() {
+    private DebugTimeMan() {
 
     }
 
@@ -30,11 +31,11 @@ public class LaunchTimeUtil {
      *
      * @return the instance
      */
-    public static LaunchTimeUtil getInstance() {
+    public static DebugTimeMan getInstance() {
         if (instance == null) {
-            synchronized (CodeDebugUtil.class) {
+            synchronized (DebugDumpMan.class) {
                 if (instance == null) {
-                    instance = new LaunchTimeUtil();
+                    instance = new DebugTimeMan();
                 }
             }
         }
@@ -45,11 +46,11 @@ public class LaunchTimeUtil {
      * Start.
      */
     public void start() {
-        if (!ENABLE_MODULE || !CODE_DEBUG || ENABLE_TIME_DEBUG) {
+        if (isDisable()) {
             return;
         }
         lastTimeNanos = System.nanoTime();
-        Log.d(TAG, "[LaunchTimeUtil start]");
+        Log.d(TAG, "[DebugTimeMan start]");
     }
 
     /**
@@ -59,10 +60,10 @@ public class LaunchTimeUtil {
      */
     @SuppressLint("LogConditional")
     public void stop(String title) {
-        if (!ENABLE_MODULE || !CODE_DEBUG || ENABLE_TIME_DEBUG) {
+        if (isDisable()) {
             return;
         }
-        Log.d(TAG, "[LaunchTimeUtil stop]");
+        Log.d(TAG, "[DebugTimeMan stop]");
         diff(title);
         lastTimeNanos = currentTimeNanos;
     }
@@ -72,13 +73,14 @@ public class LaunchTimeUtil {
      *
      * @param title the title
      */
+    @SuppressWarnings("WeakerAccess")
     @SuppressLint("LogConditional")
     public void diff(String title) {
-        if (!ENABLE_MODULE || !CODE_DEBUG || ENABLE_TIME_DEBUG) {
+        if (isDisable()) {
             return;
         }
         currentTimeNanos = System.nanoTime();
-        Log.d(TAG, "[LaunchTimeUtil diff] " + title + " diffMs: "
+        Log.d(TAG, "[DebugTimeMan diff] " + title + " diffMs: "
                 + TimeUnit.MILLISECONDS.convert(currentTimeNanos - lastTimeNanos, TimeUnit.NANOSECONDS) + "ms");
     }
 
@@ -86,7 +88,7 @@ public class LaunchTimeUtil {
      * Register idle handler.
      */
     public void registerIdleHandler(final IdleHandlerListener listener) {
-        if (!ENABLE_MODULE || !CODE_DEBUG || ENABLE_TIME_DEBUG) {
+        if (isDisable()) {
             return;
         }
 
@@ -111,6 +113,10 @@ public class LaunchTimeUtil {
 
     public interface IdleHandlerListener{
         void idleHandlerDone();
+    }
+
+    private boolean isDisable() {
+        return !ENABLE_MODULE || !CODE_DEBUG || !ENABLE_TIME_DEBUG;
     }
 
 }

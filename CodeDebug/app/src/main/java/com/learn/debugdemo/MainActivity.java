@@ -4,10 +4,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.debug.lib.CodeDebugConst;
-import com.debug.lib.CodeDebugUtil;
-import com.debug.lib.LaunchTimeUtil;
-import com.learn.blockmonitor.BlockMonitor;
+import com.debug.lib.DebugMan;
+import com.debug.lib.DebugDumpMan;
+import com.debug.lib.DebugTimeMan;
 
 public class MainActivity extends AppCompatActivity {
     private final static String TAG = "CodeDebug";
@@ -17,41 +16,28 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (CodeDebugConst.DEBUG) {
-            BlockMonitor.install(this, new UserBlockConfig()).start();
-        }
+        //BlockMonitor.install(this, new UserBlockConfig()).start();
 
-        LaunchTimeUtil.getInstance().start();
-        // init CodeDebugUtil
-        CodeDebugUtil.getInstance().init(this);
+        DebugMan.enable(false);
+        DebugTimeMan.getInstance().start();
+        // init DebugDumpMan
+        DebugDumpMan.getInstance().init(this);
         // start tracing, it must call in UI thread
-        CodeDebugUtil.getInstance().startTracing();
-
-        findViewById(R.id.tv_demo).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                testMethodTimeConsume();
-            }
-        });
-
-        testMemoryLeak();
+        DebugDumpMan.getInstance().startTracing();
 
         // stop tracing, tracing file will not appear since you call stopTracing method
-        CodeDebugUtil.getInstance().stopTracing();
-        // if you need collect method tracing nano time, use following instead.
-        // long diffMs = CodeDebugUtil.stopTracing(lastTimeNanos);
-        // Log.d(TAG,"onCreate MethodTracing: " + + diffMs + "ms");
+        DebugDumpMan.getInstance().stopTracing();
     }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus) {
-            LaunchTimeUtil.getInstance().stop("onWindowFocusChanged");
+            DebugTimeMan.getInstance().stop("onWindowFocusChanged");
         }
     }
 
-    private void testMethodTimeConsume() {
+    public void testMethodTimeConsume(View v) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -61,10 +47,10 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-        }, "DemoThread").start();
+        }, "testMethodTimeConsumeThread").start();
     }
 
-    private void testMemoryLeak() {
+    public void testMemoryLeak(View v) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -78,25 +64,44 @@ public class MainActivity extends AppCompatActivity {
         }, "VivianLeakThread").start();
     }
 
+    public void testStringPerformance(View v){
+        StateMan.sStop = false;
+        TestString.testStringPerformance();
+    }
+
+    public void testMethodChurn(View v){
+        StateMan.sStop = false;
+        TestString.testMemoryChurn();
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
 
-        LaunchTimeUtil.getInstance().registerIdleHandler();
+        DebugTimeMan.getInstance().registerIdleHandler(new DebugTimeMan.IdleHandlerListener() {
+
+            @Override
+            public void idleHandlerDone() {
+                //reportFullyDrawn();
+            }
+        });
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
 
-        LaunchTimeUtil.getInstance().start();
+        DebugTimeMan.getInstance().start();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
 
-        LaunchTimeUtil.getInstance().stop("onDestroy");
+        DebugTimeMan.getInstance().stop("onDestroy");
     }
 
+    public void stopAll(View view) {
+        StateMan.sStop = true;
+    }
 }
