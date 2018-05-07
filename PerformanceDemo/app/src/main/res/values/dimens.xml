@@ -1,5 +1,0 @@
-<resources>
-    <dimen name="avatar_dimen">100dp</dimen>
-    <dimen name="avatar_layout_margin">10dp</dimen>
-    <dimen name="narrow_space">20dp</dimen>
-</resources>

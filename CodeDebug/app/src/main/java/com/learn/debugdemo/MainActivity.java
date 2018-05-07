@@ -1,5 +1,7 @@
 package com.learn.debugdemo;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-        }, "testMethodTimeConsumeThread").start();
+        }, "TimeConsumeThread").start();
     }
 
     public void testMemoryLeak(View v) {
@@ -61,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
             }
-        }, "VivianLeakThread").start();
+        }, "MemoryLeakThread").start();
     }
 
     public void testStringPerformance(View v){
@@ -80,9 +82,10 @@ public class MainActivity extends AppCompatActivity {
 
         DebugTimeMan.getInstance().registerIdleHandler(new DebugTimeMan.IdleHandlerListener() {
 
+            @TargetApi(Build.VERSION_CODES.KITKAT)
             @Override
             public void idleHandlerDone() {
-                //reportFullyDrawn();
+                reportFullyDrawn();
             }
         });
     }
