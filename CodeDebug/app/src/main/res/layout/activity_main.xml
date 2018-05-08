@@ -28,15 +28,6 @@
             android:textSize="20dp" />
 
         <Button
-            android:id="@+id/tv_string"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:onClick="testStringPerformance"
-            android:text="StringPerformance"
-            android:textSize="20dp" />
-
-        <Button
             android:id="@+id/tv_demo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

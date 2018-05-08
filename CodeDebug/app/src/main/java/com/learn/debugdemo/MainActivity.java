@@ -66,11 +66,6 @@ public class MainActivity extends AppCompatActivity {
         }, "MemoryLeakThread").start();
     }
 
-    public void testStringPerformance(View v){
-        StateMan.sStop = false;
-        TestString.testStringPerformance();
-    }
-
     public void testMethodChurn(View v){
         StateMan.sStop = false;
         TestString.testMemoryChurn();
