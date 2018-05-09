@@ -1,0 +1,9 @@
+<resources>
+    <string-array name="home">
+        <item>Get Apk List</item>
+        <item>Show Photo</item>
+        <item>Get Mock User</item>
+        <item>TODO</item>
+        <item>TODO</item>
+    </string-array>
+</resources>

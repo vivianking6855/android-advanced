@@ -9,6 +9,9 @@ import android.support.v4.content.CursorLoader;
 public class PhotoDataHelper {
     private Context mContext;
 
+    // show how many photo in each grid row
+    public final static int PHOTO_GRID_NUM = 3;
+
     private final Uri PHOTO_URI = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
     // order by add date: DESC. you may change to ASC if needed
     private final String SORT_ORDER = MediaStore.Images.Media.DATE_ADDED + " DESC ";

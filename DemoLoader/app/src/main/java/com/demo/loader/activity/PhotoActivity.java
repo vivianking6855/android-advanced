@@ -1,5 +1,6 @@
 package com.demo.loader.activity;
 
+import android.app.Activity;
 import android.database.Cursor;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,14 +17,21 @@ import com.demo.loader.R;
 import com.demo.loader.common.Const;
 import com.demo.loader.photo.PhotoCursorAdapter;
 import com.demo.loader.photo.PhotoDataHelper;
+import com.squareup.picasso.Picasso;
 
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+import static com.demo.loader.photo.PhotoDataHelper.PHOTO_GRID_NUM;
+
 public class PhotoActivity extends AppCompatActivity {
     private Reference<PhotoActivity> mActivityRef;
 
-    private RecyclerView mPhotoRecyclerView;
+    @BindView(android.R.id.list)
+    RecyclerView mPhotoRecyclerView;
     private PhotoCursorAdapter mPhotoAdapter;
     private PhotoDataHelper mDataHelper;
 
@@ -40,19 +49,20 @@ public class PhotoActivity extends AppCompatActivity {
 
     private void initData() {
         mDataHelper = new PhotoDataHelper(mActivityRef.get());
+
+        ButterKnife.bind(this);
     }
 
     private void initView() {
         mPhotoAdapter = new PhotoCursorAdapter(mActivityRef.get());
-        RecyclerView recyclerView = findViewById(android.R.id.list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(PhotoActivity.this));
-        recyclerView.setAdapter(mPhotoAdapter);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new DividerItemDecoration(
+        mPhotoRecyclerView.setLayoutManager(new GridLayoutManager(mActivityRef.get(), PHOTO_GRID_NUM));
+        mPhotoRecyclerView.setAdapter(mPhotoAdapter);
+        mPhotoRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mPhotoRecyclerView.addItemDecoration(new DividerItemDecoration(
                 mActivityRef.get(), DividerItemDecoration.VERTICAL));
     }
 
-    private void loadData(){
+    private void loadData() {
         // init Loader，LoaderManager will call onCreateLoader to get Loader and callback onLoadFinished when finished
         getSupportLoaderManager().initLoader(Const.TASK_PHOTO_ID, null, new PhotoLoaderCallback());
     }
@@ -80,5 +90,12 @@ public class PhotoActivity extends AppCompatActivity {
         public void onLoaderReset(Loader<Cursor> loader) {
             mPhotoAdapter.swapCursor(null);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        mPhotoAdapter.release();
     }
 }

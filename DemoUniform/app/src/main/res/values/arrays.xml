@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <string-array name="algorithm_list">
-        <item>@string/home_item</item>
-    </string-array>
-
-</resources>

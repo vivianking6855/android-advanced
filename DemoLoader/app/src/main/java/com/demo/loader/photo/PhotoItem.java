@@ -12,4 +12,9 @@ public class PhotoItem {
         item.title = cursor.getString(cursor.getColumnIndexOrThrow(PhotoDataHelper.ItemsDBInfo.TITLE));
         return item;
     }
+
+    @Override
+    public String toString() {
+        return "PhotoItem : { path:" + path + ",title:" + title + "}";
+    }
 }

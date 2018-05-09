@@ -87,7 +87,7 @@ public class DebugMemoryMan {
         return !ENABLE_MODULE || !CODE_DEBUG || !ENABLE_MEMORY_DEBUG;
     }
 
-    private void get(Context context) {
+    public void getMemoryInfo(Context context) {
         ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         // avail memory 以m为单位
         int memClass = activityManager.getMemoryClass();
