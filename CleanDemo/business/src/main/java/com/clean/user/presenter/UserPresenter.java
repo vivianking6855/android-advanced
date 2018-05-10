@@ -1,8 +1,8 @@
 package com.clean.user.presenter;
 
-import com.clean.businesscommon.base.BasePresenter;
 import com.learn.data.listener.IUserListener;
 import com.learn.data.repository.UserRepo;
+import com.open.appbase.presenter.BasePresenter;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;

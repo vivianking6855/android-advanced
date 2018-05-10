@@ -1,23 +1,17 @@
 package com.clean.photo.fragment;
 
-import android.app.Activity;
-import android.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
-import com.clean.apklist.adapter.ApkListAdapter;
-import com.clean.apklist.listenter.IApkDisplayer;
-import com.clean.apklist.presenter.ApkPresenter;
-import com.clean.businesscommon.base.BaseMVPLazyFragment;
 import com.clean.photo.adapter.PhotoCursorAdapter;
 import com.clean.photo.listenter.IPhotoDisplayer;
 import com.clean.photo.presenter.PhotoPresenter;
+import com.open.appbase.fragment.BaseMVPLazyFragment;
 
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;

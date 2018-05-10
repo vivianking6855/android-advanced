@@ -14,8 +14,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.clean.R;
-import com.clean.businesscommon.base.BaseAbstractRecycleCursorAdapter;
 import com.learn.data.entity.PhotoEntity;
+import com.open.appbase.adapter.recyclerview.BaseAbstractRecycleCursorAdapter;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;

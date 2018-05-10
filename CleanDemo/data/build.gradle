@@ -28,11 +28,11 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-    implementation 'com.squareup.okhttp3:okhttp:3.6.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation 'com.squareup.retrofit2:retrofit:2.2.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.0.2'
     implementation 'com.google.code.gson:gson:2.8.0'
 
-    implementation 'com.open.library:utilslib:1.0.180326' // utils library
-    implementation 'com.jakewharton:disklrucache:2.0.2' // cache
+    implementation 'com.open.library:utils:1.0.180510'
+    implementation 'com.jakewharton:disklrucache:2.0.2'
 }

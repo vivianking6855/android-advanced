@@ -3,24 +3,16 @@ package com.clean.photo.presenter;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.util.Log;
 
-import com.clean.apklist.adapter.ApkListAdapter;
-import com.clean.apklist.listenter.IApkDisplayer;
-import com.clean.apklist.presenter.ApkListLoader;
-import com.clean.businesscommon.base.BasePresenter;
 import com.clean.businesscommon.common.Const;
 import com.clean.photo.adapter.PhotoCursorAdapter;
 import com.clean.photo.listenter.IPhotoDisplayer;
-import com.learn.data.entity.ApkEntity;
 import com.learn.data.repository.PhotoRepo;
-
-import java.util.List;
+import com.open.appbase.presenter.BasePresenter;
 
 
 /**
@@ -36,7 +28,7 @@ public class PhotoPresenter extends BasePresenter<IPhotoDisplayer> {
 
     public void startLoader() {
         // init Loader，LoaderManager will call onCreateLoader to get Loader and callback onLoadFinished when finished
-        (((Fragment) mOuterWeakRef.get()).getActivity()).
+        (((Fragment) viewWeakRef.get()).getActivity()).
                 getSupportLoaderManager().initLoader(Const.TASK_PHOTO_ID, null, new PhotoLoaderCallback());
     }
 
@@ -44,13 +36,13 @@ public class PhotoPresenter extends BasePresenter<IPhotoDisplayer> {
 
         @Override
         public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-            mOuterWeakRef.get().onDisplay("photo loading");
-            return PhotoRepo.getCursorLoader((Context) mOuterWeakRef.get());
+            viewWeakRef.get().onDisplay("photo loading");
+            return PhotoRepo.getCursorLoader((Context) viewWeakRef.get());
         }
 
         @Override
         public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-            mOuterWeakRef.get().onDisplay("photo load finish!");
+            viewWeakRef.get().onDisplay("photo load finish!");
             if (data == null || data.getCount() == 0) {
                 Log.w(Const.LOG_TAG, "photo onLoadFinished empty data");
                 return;

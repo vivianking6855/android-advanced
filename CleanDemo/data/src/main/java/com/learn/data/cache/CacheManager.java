@@ -2,7 +2,7 @@ package com.learn.data.cache;
 
 import android.content.Context;
 
-import com.open.utislib.cache.DiskLruCacheUtils;
+import com.learn.data.common.DiskLruCacheUtils;
 
 /**
  * CacheManager include LruCache and DishCache

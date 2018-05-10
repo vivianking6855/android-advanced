@@ -10,8 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import com.clean.R;
-import com.clean.businesscommon.base.BaseActivity;
 import com.clean.home.adapter.RecyclerViewArrayAdapter;
+import com.open.appbase.activity.BaseActivity;
 
 import java.lang.ref.Reference;
 

@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.clean.R;
 import com.learn.data.entity.ApkEntity;
-import com.clean.businesscommon.base.BaseListAdapter;
+import com.open.appbase.adapter.BaseListAdapter;
 
 public class ApkListAdapter extends BaseListAdapter<ApkEntity, ApkListAdapter.DataViewHolder> {
     // global LayoutInflater to void multi-get in onCreateViewHolder

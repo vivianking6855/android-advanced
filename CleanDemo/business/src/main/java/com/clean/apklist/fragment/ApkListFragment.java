@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.clean.apklist.adapter.ApkListAdapter;
 import com.clean.apklist.listenter.IApkDisplayer;
 import com.clean.apklist.presenter.ApkPresenter;
-import com.clean.businesscommon.base.BaseMVPLazyFragment;
+import com.open.appbase.fragment.BaseMVPLazyFragment;
 
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;

@@ -11,8 +11,8 @@ import android.support.v4.content.Loader;
 import com.clean.apklist.adapter.ApkListAdapter;
 import com.clean.apklist.listenter.IApkDisplayer;
 import com.learn.data.entity.ApkEntity;
-import com.clean.businesscommon.base.BasePresenter;
 import com.clean.businesscommon.common.Const;
+import com.open.appbase.presenter.BasePresenter;
 
 import java.util.List;
 
@@ -29,7 +29,7 @@ public class ApkPresenter extends BasePresenter<IApkDisplayer> {
     }
 
     public void startLoader() {
-        (((Fragment) mOuterWeakRef.get()).getActivity()).
+        (((Fragment) viewWeakRef.get()).getActivity()).
                 getSupportLoaderManager().initLoader(Const.TASK_HOME_ID, null, new HomeLoaderCallback());
     }
 
@@ -37,16 +37,16 @@ public class ApkPresenter extends BasePresenter<IApkDisplayer> {
         @NonNull
         @Override
         public Loader<List<ApkEntity>> onCreateLoader(int id, @Nullable Bundle args) {
-            mOuterWeakRef.get().onDisplay("start loading");
+            viewWeakRef.get().onDisplay("start loading");
 
             // Loader use application context in it's own
-            return new ApkListLoader((Context) mOuterWeakRef.get());
+            return new ApkListLoader((Context) viewWeakRef.get());
         }
 
         @Override
         public void onLoadFinished(@NonNull Loader<List<ApkEntity>> loader, List<ApkEntity> data) {
             mAdapter.setData(data);
-            mOuterWeakRef.get().onDisplay("load finish!");
+            viewWeakRef.get().onDisplay("load finish!");
         }
 
         @Override

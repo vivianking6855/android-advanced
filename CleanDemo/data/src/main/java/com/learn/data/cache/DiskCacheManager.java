@@ -5,9 +5,9 @@ import android.content.Context;
 import android.util.Log;
 
 import com.jakewharton.disklrucache.DiskLruCache;
-import com.open.utislib.base.AppUtils;
-import com.open.utislib.file.FileUtils;
-import com.open.utislib.file.PathUtils;
+import com.open.utilslib.base.AppUtils;
+import com.open.utilslib.file.FileUtils;
+import com.open.utilslib.file.PathUtils;
 
 import java.io.IOException;
 
