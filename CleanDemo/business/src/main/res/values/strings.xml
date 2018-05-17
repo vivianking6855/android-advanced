@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CleanDemo</string>
+    <string name="app_name">CleanArchitecture</string>
 
     <string name="readme">
 项目中默认有三种数据加载： \n

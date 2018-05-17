@@ -1,56 +1,54 @@
-package com.clean.photo.fragment;
+package com.clean.home.fragment;
 
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
 import com.clean.R;
-import com.clean.photo.adapter.PhotoCursorAdapter;
-import com.clean.photo.listenter.IPhotoDisplayer;
-import com.clean.photo.presenter.PhotoPresenter;
-import com.open.appbase.fragment.BaseMVPLazyFragment;
+import com.clean.businesscommon.router.UIRouter;
+import com.open.appbase.adapter.recyclerview.RecyclerItemClickListener;
+import com.open.appbase.adapter.recyclerview.RecyclerViewArrayAdapter;
+import com.open.appbase.fragment.BaseLazyFragment;
 import com.orhanobut.logger.Logger;
 
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
 
+import butterknife.BindArray;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-import static com.clean.businesscommon.common.Const.PHOTO_GRID_NUM;
 import static com.clean.businesscommon.common.Const.TAG_APP;
 
 /**
- * Apk List Fragment
+ * Home List Fragment
  */
-public class PhotoListFragment extends BaseMVPLazyFragment<IPhotoDisplayer, PhotoPresenter> implements IPhotoDisplayer {
+public class HomeListFragment extends BaseLazyFragment {
     private Reference<FragmentActivity> mActivityRef;
 
     private Unbinder unbinder;
-    private PhotoCursorAdapter mAdapter;
 
     @BindView(android.R.id.list)
     RecyclerView recyclerView;
     @BindView(android.R.id.title)
-    TextView statusTV;
+    TextView resultTV;
 
-    public static PhotoListFragment newInstance() {
-        return new PhotoListFragment();
-    }
+    @BindArray(R.array.home)
+    String[] homeList;
 
-    @Override
-    protected PhotoPresenter createPresenter() {
-        return new PhotoPresenter();
+
+    public static HomeListFragment newInstance() {
+        return new HomeListFragment();
     }
 
     @Override
     protected int getLayout() {
-        return R.layout.fragment_apk_list;
+        return R.layout.fragment_home_list;
     }
 
     @Override
@@ -61,12 +59,10 @@ public class PhotoListFragment extends BaseMVPLazyFragment<IPhotoDisplayer, Phot
 
         unbinder = ButterKnife.bind(this, view);
 
-        recyclerView.setLayoutManager(new GridLayoutManager(mActivityRef.get(), PHOTO_GRID_NUM));
+        recyclerView.setLayoutManager(new LinearLayoutManager(mActivityRef.get()));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(
                 mActivityRef.get(), DividerItemDecoration.VERTICAL));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        mAdapter = new PhotoCursorAdapter(mActivityRef.get());
-        recyclerView.setAdapter(mAdapter);
     }
 
     @Override
@@ -76,8 +72,19 @@ public class PhotoListFragment extends BaseMVPLazyFragment<IPhotoDisplayer, Phot
 
     @Override
     protected void loadData() {
-        mPresenter.setAdapter(mAdapter);
-        mPresenter.startLoader();
+        recyclerView.setAdapter(new RecyclerViewArrayAdapter(mActivityRef.get(), homeList));
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(mActivityRef.get(),
+                recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                UIRouter.gotoFragment(mActivityRef.get(), position);
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+
+            }
+        }));
     }
 
     @Override
@@ -85,8 +92,6 @@ public class PhotoListFragment extends BaseMVPLazyFragment<IPhotoDisplayer, Phot
         super.onDestroyView();
 
         safeDestroy();
-
-        //mAdapter.releasePicasso();
     }
 
     private void safeDestroy() {
@@ -97,8 +102,4 @@ public class PhotoListFragment extends BaseMVPLazyFragment<IPhotoDisplayer, Phot
         }
     }
 
-    @Override
-    public void onDisplay(String msg) {
-        statusTV.setText(msg);
-    }
 }

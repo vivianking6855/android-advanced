@@ -4,11 +4,11 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.AsyncTaskLoader;
-import android.util.Log;
 
-import com.learn.data.entity.ApkEntity;
 import com.clean.businesscommon.common.Const;
+import com.learn.data.entity.ApkEntity;
 import com.learn.data.repository.ApkRepo;
+import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class ApkListLoader extends AsyncTaskLoader<List<ApkEntity>> {
     @Nullable
     @Override
     public List<ApkEntity> loadInBackground() {
-        Log.d(Const.LOG_TAG, "apk loadInBackground");
+        Logger.d("apk loadInBackground");
         return ApkRepo.getLocalAppList(getContext().getPackageManager());
     }
 

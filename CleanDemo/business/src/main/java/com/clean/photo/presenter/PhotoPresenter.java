@@ -8,11 +8,13 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.util.Log;
 
+import com.clean.apklist.adapter.ApkListAdapter;
 import com.clean.businesscommon.common.Const;
 import com.clean.photo.adapter.PhotoCursorAdapter;
 import com.clean.photo.listenter.IPhotoDisplayer;
 import com.learn.data.repository.PhotoRepo;
 import com.open.appbase.presenter.BasePresenter;
+import com.orhanobut.logger.Logger;
 
 
 /**
@@ -22,7 +24,7 @@ public class PhotoPresenter extends BasePresenter<IPhotoDisplayer> {
 
     private PhotoCursorAdapter mPhotoAdapter;
 
-    public PhotoPresenter(PhotoCursorAdapter adapter) {
+    public void setAdapter(PhotoCursorAdapter adapter) {
         mPhotoAdapter = adapter;
     }
 
@@ -37,18 +39,23 @@ public class PhotoPresenter extends BasePresenter<IPhotoDisplayer> {
         @Override
         public Loader<Cursor> onCreateLoader(int id, Bundle args) {
             viewWeakRef.get().onDisplay("photo loading");
-            return PhotoRepo.getCursorLoader((Context) viewWeakRef.get());
+            return PhotoRepo.getCursorLoader((((Fragment) viewWeakRef.get()).getActivity()));
         }
 
         @Override
         public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-            viewWeakRef.get().onDisplay("photo load finish!");
+            if (mPhotoAdapter == null || viewWeakRef.get() == null) {
+                return;
+            }
+
             if (data == null || data.getCount() == 0) {
-                Log.w(Const.LOG_TAG, "photo onLoadFinished empty data");
+                Logger.w("empty photo data");
                 return;
             } else {
                 mPhotoAdapter.swapCursor(data);
             }
+
+            viewWeakRef.get().onDisplay("photo load finish! " + data.getCount());
         }
 
         @Override

@@ -3,14 +3,14 @@ package com.learn.data.repository;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.util.Log;
 
 import com.learn.data.entity.ApkEntity;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.learn.data.common.Const.LOG_TAG;
+import static com.learn.data.common.Const.TAG_DATA;
 
 public class ApkRepo {
 
@@ -36,7 +36,7 @@ public class ApkRepo {
                 appList.add(appInfo);
             }
         } catch (Exception e) {
-            Log.w(LOG_TAG, "getLocalAppList ex", e);
+            Logger.w("getLocalAppList ex", e);
         }
         return appList;
     }

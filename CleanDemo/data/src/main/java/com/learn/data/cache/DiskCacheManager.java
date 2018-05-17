@@ -8,6 +8,7 @@ import com.jakewharton.disklrucache.DiskLruCache;
 import com.open.utilslib.base.AppUtils;
 import com.open.utilslib.file.FileUtils;
 import com.open.utilslib.file.PathUtils;
+import com.orhanobut.logger.Logger;
 
 import java.io.IOException;
 
@@ -15,17 +16,36 @@ import java.io.IOException;
  * Created by vivian on 2017/11/13.
  * cache manager
  */
-enum DiskCacheManager {
-    INSTANCE;
-
-    private final String TAG = DiskCacheManager.class.getSimpleName();
+public class DiskCacheManager {
+    private final String TAG = "DiskCacheManager";
+    private static volatile DiskCacheManager instance;
 
     // disk cache
     private DiskLruCache mDiskLruCache;
     // disk cache directory
     private static final String DISK_CACHE_PATH = "diskcache";
     // disk cache max size
-    private static final int DISK_MAX_SIZE = 10 * 1024 * 1024;
+    private static final int DISK_MAX_SIZE = 10 * 1024 * 1024; // 10M
+
+    private DiskCacheManager() {
+    }
+
+    /**
+     * Gets instance.
+     *
+     * @return the instance
+     */
+    public static DiskCacheManager getInstance() {
+        if (instance == null) {
+            synchronized (DiskCacheManager.class) {
+                if (instance == null) {
+                    instance = new DiskCacheManager();
+                }
+            }
+        }
+        return instance;
+    };
+
 
     public void init(Context context) {
 
@@ -49,10 +69,10 @@ enum DiskCacheManager {
                 // open DiskLruCache
                 mDiskLruCache = DiskLruCache.open(PathUtils.getDiskCacheDir(context.getApplicationContext(), DISK_CACHE_PATH),
                         AppUtils.getAppVersionCode(context), 1, DISK_MAX_SIZE);
-                Log.d(TAG, "mDiskLruCache path " + mDiskLruCache.getDirectory().getPath());
+                Logger.d("mDiskLruCache path " + mDiskLruCache.getDirectory().getPath());
             }
         } catch (IOException e) {
-            Log.w(TAG, "getDiskCache ex ", e);
+            Logger.w("getDiskCache ex ", e);
         }
 
         return mDiskLruCache;
@@ -74,7 +94,7 @@ enum DiskCacheManager {
                 mDiskLruCache.flush();
             }
         } catch (IOException e) {
-            Log.w(TAG, "flushDiskLruCache ex ", e);
+            Logger.w("flushDiskLruCache ex ", e);
         }
     }
 
@@ -103,7 +123,7 @@ enum DiskCacheManager {
                 mDiskLruCache.close();
             }
         } catch (IOException e) {
-            Log.w(TAG, "flushDiskLruCache ex ", e);
+            Logger.w("flushDiskLruCache ex ", e);
         }
     }
 

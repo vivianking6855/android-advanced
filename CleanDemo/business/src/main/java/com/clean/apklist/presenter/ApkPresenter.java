@@ -1,6 +1,5 @@
 package com.clean.apklist.presenter;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -24,11 +23,14 @@ public class ApkPresenter extends BasePresenter<IApkDisplayer> {
 
     private ApkListAdapter mAdapter;
 
-    public ApkPresenter(ApkListAdapter adapter) {
+    public void setAdapter(ApkListAdapter adapter) {
         mAdapter = adapter;
     }
 
     public void startLoader() {
+        if (viewWeakRef.get() == null) {
+            return;
+        }
         (((Fragment) viewWeakRef.get()).getActivity()).
                 getSupportLoaderManager().initLoader(Const.TASK_HOME_ID, null, new HomeLoaderCallback());
     }
@@ -37,14 +39,21 @@ public class ApkPresenter extends BasePresenter<IApkDisplayer> {
         @NonNull
         @Override
         public Loader<List<ApkEntity>> onCreateLoader(int id, @Nullable Bundle args) {
+            if (viewWeakRef.get() == null) {
+                return null;
+            }
             viewWeakRef.get().onDisplay("start loading");
 
+
             // Loader use application context in it's own
-            return new ApkListLoader((Context) viewWeakRef.get());
+            return new ApkListLoader(((Fragment) viewWeakRef.get()).getActivity());
         }
 
         @Override
         public void onLoadFinished(@NonNull Loader<List<ApkEntity>> loader, List<ApkEntity> data) {
+            if (mAdapter == null || data == null) {
+                return;
+            }
             mAdapter.setData(data);
             viewWeakRef.get().onDisplay("load finish!");
         }

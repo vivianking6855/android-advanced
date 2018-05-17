@@ -3,8 +3,9 @@ package com.clean;
 import android.app.Application;
 import android.content.res.Configuration;
 
-import com.learn.data.cache.CacheManager;
-import com.learn.data.cache.GlobalManager;
+import com.clean.debug.DebugBusiness;
+import com.learn.data.repository.DataModule;
+import com.orhanobut.logger.Logger;
 
 /**
  * Created by vivian on 2017/11/13.
@@ -18,10 +19,17 @@ public class UserApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        initApp();
+    }
 
-        // init cache
-        GlobalManager.INSTANCE.init();
-        CacheManager.INSTANCE.init(this);
+    private void initApp() {
+        // install data module
+        Logger.d("DataModule install");
+        DataModule.getInstance().install(this);
+
+        // install debug
+        Logger.d("DebugBusiness install");
+        DebugBusiness.install();
     }
 
     /**
@@ -32,8 +40,8 @@ public class UserApplication extends Application {
     public void onTerminate() {
         super.onTerminate();
 
-        GlobalManager.INSTANCE.release();
-        CacheManager.INSTANCE.release();
+        DataModule.getInstance().uninstall();
+        DebugBusiness.uninstall();
     }
 
     /**

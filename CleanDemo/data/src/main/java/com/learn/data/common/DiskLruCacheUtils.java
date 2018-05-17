@@ -8,6 +8,7 @@ import android.util.Log;
 import com.jakewharton.disklrucache.DiskLruCache;
 import com.open.utilslib.base.ConvertUtils;
 import com.open.utilslib.file.CloseUtils;
+import com.orhanobut.logger.Logger;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -61,7 +62,7 @@ public final class DiskLruCacheUtils {
             // write ,CLEAN
             editor.commit();
         } catch (IOException e) {
-            Log.w(TAG, "set() ex ", e);
+            Logger.w("set() ex ", e);
             safelyAbortEditor(editor);
         }
     }
@@ -81,7 +82,7 @@ public final class DiskLruCacheUtils {
         try {
             return snapShot.getString(0);
         } catch (IOException e) {
-            Log.w(TAG, "getString() ex ", e);
+            Logger.w("getString() ex ", e);
         }
 
         return null;
@@ -112,7 +113,7 @@ public final class DiskLruCacheUtils {
         try {
             return new JSONObject(val);
         } catch (JSONException e) {
-            Log.w(TAG, "getJson() ex ", e);
+            Logger.w("getJson() ex ", e);
         }
 
         return null;
@@ -144,7 +145,7 @@ public final class DiskLruCacheUtils {
             JSONArray obj = new JSONArray(val);
             return obj;
         } catch (Exception e) {
-            Log.w(TAG, "getJSONArray() ex ", e);
+            Logger.w("getJSONArray() ex ", e);
         }
 
         return null;
@@ -170,7 +171,7 @@ public final class DiskLruCacheUtils {
             //write CLEAN
             editor.commit();
         } catch (Exception e) {
-            Log.w(TAG, "set() ex ", e);
+            Logger.w("set() ex ", e);
             safelyAbortEditor(editor);
         } finally {
             CloseUtils.closeIO(out);
@@ -207,7 +208,7 @@ public final class DiskLruCacheUtils {
             }
             return array.toByteArray();
         } catch (IOException e) {
-            Log.w(TAG, "getBytes ex ", e);
+            Logger.w("getBytes ex ", e);
         }
 
         return null;
@@ -233,7 +234,7 @@ public final class DiskLruCacheUtils {
             objectstream.flush();
             editor.commit();
         } catch (IOException e) {
-            Log.w(TAG, "set() ex ", e);
+            Logger.w("set() ex ", e);
             safelyAbortEditor(editor);
         } finally {
             CloseUtils.closeIO(objectstream);
@@ -264,7 +265,7 @@ public final class DiskLruCacheUtils {
             stream = new ObjectInputStream(ins);
             return (T) stream.readObject();
         } catch (ClassNotFoundException | IOException e) {
-            Log.w(TAG, "getSerializable ex ", e);
+            Logger.w("getSerializable ex ", e);
         } finally {
             CloseUtils.closeIO(stream);
         }
@@ -335,13 +336,13 @@ public final class DiskLruCacheUtils {
             DiskLruCache.Snapshot snapshot = mDiskLruCache.get(key);
             //not find entry , or entry.readable = false
             if (snapshot == null) {
-                Log.w(TAG, "no entry or entry.readable = false");
+                Logger.w("no entry or entry.readable = false");
                 return null;
             }
             //write READ
             return snapshot.getInputStream(0);
         } catch (IOException e) {
-            Log.w(TAG, "get ex ", e);
+            Logger.w("get ex ", e);
         }
 
         return null;
@@ -354,13 +355,13 @@ public final class DiskLruCacheUtils {
      */
     private static DiskLruCache.Editor getEditor(String key) {
         if (mDiskLruCache == null) {
-            Log.e(TAG, "you need call setDiskLruCache() to set mDiskLruCache first.");
+            Logger.w("you need call setDiskLruCache() to set mDiskLruCache first.");
             return null;
         }
         try {
             return mDiskLruCache.edit(key);
         } catch (IOException e) {
-            Log.w(TAG, "getEditor() ex ", e);
+            Logger.w("getEditor() ex ", e);
         }
 
         return null;
@@ -373,13 +374,13 @@ public final class DiskLruCacheUtils {
      */
     private static DiskLruCache.Snapshot getSnapshot(String key) {
         if (mDiskLruCache == null) {
-            Log.e(TAG, "you need call setDiskLruCache() to set mDiskLruCache first.");
+            Logger.w("you need call setDiskLruCache() to set mDiskLruCache first.");
             return null;
         }
         try {
             return mDiskLruCache.get(key);
         } catch (IOException e) {
-            Log.w(TAG, "getSnapshot() ex ", e);
+            Logger.w("getSnapshot() ex ", e);
         }
 
         return null;
@@ -410,7 +411,7 @@ public final class DiskLruCacheUtils {
             // write fail, REMOVE
             editor.abort();
         } catch (IOException e) {
-            Log.w(TAG, "safelyAbortEditor() editor.abort ex ", e);
+            Logger.w("safelyAbortEditor() editor.abort ex ", e);
         }
     }
 

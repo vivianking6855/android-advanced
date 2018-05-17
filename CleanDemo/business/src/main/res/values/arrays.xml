@@ -6,4 +6,13 @@
         <item>TODO</item>
         <item>TODO</item>
     </string-array>
+
+    <!-- permission -->
+    <string-array name="permission">
+        <item name="grant_permission_title">权限提醒</item>
+        <item name="grant_permission">CleanArchitecture需要<strong>存储</strong>权限。
+        请点击<strong>设置</strong>，然后点击<strong>应用程序信息</strong> > <strong>权限</strong>并打开</item>
+        <item name="grant_setting">设置</item>
+        <item name="grant_cancel">退出</item>
+    </string-array>
 </resources>

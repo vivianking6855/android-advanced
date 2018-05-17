@@ -1,38 +1,29 @@
 package com.clean.home;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.clean.R;
-import com.clean.home.adapter.RecyclerViewArrayAdapter;
-import com.open.appbase.activity.BaseActivity;
-
-import java.lang.ref.Reference;
+import com.clean.home.fragment.HomeListFragment;
+import com.open.appbase.activity.BasePermissionActivity;
 
 import butterknife.BindArray;
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
  * HomeActivity
  * IApkDisplayer as V in MVP
  */
-public class HomeActivity extends BaseActivity {
-    private Reference<HomeActivity> mActivityRef;
+public class HomeActivity extends BasePermissionActivity {
 
-    @BindView(android.R.id.list)
-    RecyclerView recyclerView;
-    @BindView(android.R.id.title)
-    TextView resultTV;
+    // permission
+    public static final String READ_STORAGE = Manifest.permission.READ_EXTERNAL_STORAGE;
 
-    @BindArray(R.array.home)
-    String[] homeList;
+    @BindArray(R.array.permission)
+    String[] permissionStrs;
 
     @Override
     protected int getLayout() {
@@ -41,20 +32,23 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        ButterKnife.bind(this);
     }
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        recyclerView.setLayoutManager(new LinearLayoutManager(HomeActivity.this));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.addItemDecoration(new DividerItemDecoration(
-                HomeActivity.this, DividerItemDecoration.VERTICAL));
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(android.R.id.content, HomeListFragment.newInstance())
+                    .commitAllowingStateLoss();
+        }
+
+        ButterKnife.bind(this);
+
+        setPermissionAlterDialog(permissionStrs);
     }
 
     @Override
     protected void loadData() {
-        recyclerView.setAdapter(new RecyclerViewArrayAdapter(this, homeList));
 
     }
 
@@ -68,4 +62,18 @@ public class HomeActivity extends BaseActivity {
         return new Intent(context, HomeActivity.class);
     }
 
+    @Override
+    protected String[] getPermissions() {
+        return new String[]{READ_STORAGE};
+    }
+
+    @Override
+    protected void permissionGranted() {
+
+    }
+
+    @Override
+    protected void permissionDeny() {
+        Toast.makeText(this,"Photo Read will not work", Toast.LENGTH_SHORT).show();
+    }
 }

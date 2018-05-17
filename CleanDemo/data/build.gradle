@@ -33,6 +33,8 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.0.2'
     implementation 'com.google.code.gson:gson:2.8.0'
 
-    implementation 'com.open.library:utils:1.0.180510'
+    implementation 'com.open.library:utils:1.0.180512'
     implementation 'com.jakewharton:disklrucache:2.0.2'
+
+    implementation 'com.orhanobut:logger:2.2.0'
 }

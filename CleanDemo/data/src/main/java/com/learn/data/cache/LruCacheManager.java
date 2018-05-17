@@ -8,13 +8,30 @@ import android.support.v4.util.LruCache;
  * Created by vivian on 2017/11/16.
  */
 
-public enum LruCacheManager {
-    INSTANCE;
-
-    private final String TAG = LruCacheManager.class.getSimpleName();
-
+public class LruCacheManager {
     // lru cache
     private static LruCache<String, String> mLruStringCache;
+
+    private static volatile LruCacheManager instance;
+
+    private LruCacheManager() {
+    }
+
+    /**
+     * Gets instance.
+     *
+     * @return the instance
+     */
+    public static LruCacheManager getInstance() {
+        if (instance == null) {
+            synchronized (LruCacheManager.class) {
+                if (instance == null) {
+                    instance = new LruCacheManager();
+                }
+            }
+        }
+        return instance;
+    };
 
     /**
      * @param context context

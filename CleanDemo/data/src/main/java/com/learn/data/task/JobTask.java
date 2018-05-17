@@ -8,8 +8,6 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static com.learn.data.common.Const.LOG_TAG;
-
 /**
  * The type Job task.
  * has thread pool that:
@@ -19,6 +17,7 @@ import static com.learn.data.common.Const.LOG_TAG;
  * thread alive: 30s
  */
 public class JobTask {
+    private static final String HEAD = "JobTask";
     private static final int CPU_COUNT = Runtime.getRuntime().availableProcessors();
     // We want at least 2 threads and at most 4 threads in the core pool,
     // preferring to have 1 less than the CPU count to avoid saturating
@@ -31,7 +30,7 @@ public class JobTask {
         private final AtomicInteger mCount = new AtomicInteger(1);
 
         public Thread newThread(Runnable r) {
-            return new Thread(r, LOG_TAG + " #" + mCount.getAndIncrement());
+            return new Thread(r, HEAD + " #" + mCount.getAndIncrement());
         }
     };
 

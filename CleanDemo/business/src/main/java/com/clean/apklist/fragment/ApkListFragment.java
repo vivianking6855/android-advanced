@@ -8,10 +8,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.clean.R;
 import com.clean.apklist.adapter.ApkListAdapter;
 import com.clean.apklist.listenter.IApkDisplayer;
 import com.clean.apklist.presenter.ApkPresenter;
 import com.open.appbase.fragment.BaseMVPLazyFragment;
+import com.orhanobut.logger.Logger;
 
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
@@ -19,6 +21,8 @@ import java.lang.ref.WeakReference;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
+import static com.clean.businesscommon.common.Const.TAG_APP;
 
 /**
  * Apk List Fragment
@@ -40,12 +44,17 @@ public class ApkListFragment extends BaseMVPLazyFragment<IApkDisplayer, ApkPrese
 
     @Override
     protected ApkPresenter createPresenter() {
-        return new ApkPresenter(mAdapter);
+        return new ApkPresenter();
     }
 
     @Override
     protected int getLayout() {
-        return 0;
+        return R.layout.fragment_apk_list;
+    }
+
+    @Override
+    protected void initData() {
+        mActivityRef = new WeakReference<>(getActivity());
     }
 
     @Override
@@ -54,31 +63,34 @@ public class ApkListFragment extends BaseMVPLazyFragment<IApkDisplayer, ApkPrese
             return;
         }
 
-        mActivityRef = new WeakReference<>(getActivity());
-
         unbinder = ButterKnife.bind(this, view);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(mActivityRef.get()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.addItemDecoration(new DividerItemDecoration(
                 getActivity(), DividerItemDecoration.VERTICAL));
-    }
-
-    @Override
-    protected void initData() {
         mAdapter = new ApkListAdapter(mActivityRef.get());
         recyclerView.setAdapter(mAdapter);
     }
 
     @Override
     protected void loadData() {
+        mPresenter.setAdapter(mAdapter);
         mPresenter.startLoader();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
+        safeDestroy();
+    }
+
+    private void safeDestroy() {
+        try {
+            unbinder.unbind();
+        } catch (Exception ex) {
+            Logger.w("safeDestroy ex", ex);
+        }
     }
 
     @Override
