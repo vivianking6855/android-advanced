@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">CleanArchitecture</string>
+
+    <string name="readme">
+项目中默认有三种数据加载： \n
+1. 简单加载：HomeActivity的加载String[]，跳转不同的Fragment \n
+2. AsyncTaskLoader加载：ApkListFragment 通过AsyncTaskLoader加载apk列表 \n
+3. 网络加载：UserFragment 通过RxAndroid，Okhttp加载mock用户网络数据 \n
+4. 图片加载：PhototFragment 通过AsyncTaskLoader 和 CursorAdapter加载本地图片 \n
+
+用户可以参考来扩展自己的功能</string>
+
+    <!-- exception -->
+    <string name="exception_message_generic">There was an application error</string>
+    <string name="exception_message_no_connection">There is no internet connection</string>
+    <string name="exception_message_user_not_found">Cannot retrieve user data. Check your internet connection</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
