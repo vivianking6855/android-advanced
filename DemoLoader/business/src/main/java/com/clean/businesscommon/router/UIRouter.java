@@ -8,9 +8,7 @@ import android.support.v4.app.FragmentActivity;
 
 import com.clean.apklist.fragment.ApkListFragment;
 import com.clean.home.HomeActivity;
-import com.clean.home.fragment.HomeListFragment;
 import com.clean.photo.fragment.PhotoListFragment;
-import com.clean.user.fragment.UserFragment;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -45,9 +43,6 @@ public final class UIRouter {
             case UIType.APK:
                 fragment = ApkListFragment.newInstance();
                 break;
-            case UIType.USER:
-                fragment = UserFragment.newInstance();
-                break;
             default:
                 break;
         }
@@ -65,7 +60,6 @@ public final class UIRouter {
     public static class UIType {
         public static final int APK = 0;
         public static final int PHOTO = 1;
-        public static final int USER = 2;
 
 
         @IntDef({PHOTO, APK})

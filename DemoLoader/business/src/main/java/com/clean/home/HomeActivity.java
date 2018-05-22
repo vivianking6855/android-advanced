@@ -4,6 +4,9 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.clean.R;
@@ -40,6 +43,8 @@ public class HomeActivity extends BasePermissionActivity {
         }
 
         ButterKnife.bind(this);
+
+       ListView ss;
     }
 
     @Override
