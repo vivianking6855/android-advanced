@@ -20,7 +20,8 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.open.library:utilslib:1.0.171116'
+    implementation 'com.open.library:utilslib:1.0.180409'
+    implementation 'com.open.appbase:appbase:1.0.180605'
     implementation 'com.android.support:appcompat-v7:25.3.1'
     implementation 'com.android.support:design:25.3.1'
     implementation 'com.android.support:support-vector-drawable:25.3.1'

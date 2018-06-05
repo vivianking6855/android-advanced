@@ -1,6 +1,8 @@
-package com.wenxi.learn.algorithm.algothrim;
+package com.wenxi.learn.algorithm.algothrim.tree;
 
 import android.util.Log;
+
+import com.wenxi.learn.algorithm.algothrim.base.IAlgorithm;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,14 +15,34 @@ import java.util.concurrent.TimeUnit;
  * 1. i(i+1)或i(i-1)
  * 2. n位的阶梯树是n-1位向有扩展；（向左扩展会重复）
  */
-public enum JieTiTree {
-    INSTANCE;
-
+public class JieTiTree implements IAlgorithm {
+    
     private final static String TAG = "JieTiTree";
-    private final static int MAX_NUM = 10000;
+    private final static int MAX_NUM = 100000; // 10W
     private final static int BIT_NUM = String.valueOf(MAX_NUM).length();
 
-    public void start() {
+    /**
+     * Gets instance with inner static class way
+     *
+     * @return the instance
+     */
+    public static JieTiTree getInstance() {
+        return JieTiTree.Holder.INSTANCE;
+    }
+
+    private JieTiTree() {
+    }
+
+    private static class Holder {
+        private static final JieTiTree INSTANCE = new JieTiTree();
+    }
+
+    @Override
+    public void startAlgorithm() {
+        JieTiTree.getInstance().start();
+    }
+
+    private synchronized void start() {
         new WhileTest().strategyWhile();
         new RecursiveTest().strategyRecursive();
     }
@@ -34,7 +56,7 @@ public enum JieTiTree {
         int last_num;
         int num1, num2; // i+1; i-1
 
-        public void strategyRecursive() {
+        void strategyRecursive() {
             // tag start time
             long startTime = System.nanoTime();
             recursiveLoop(2);
@@ -91,9 +113,6 @@ public enum JieTiTree {
             }
         }
 
-        public int getSum() {
-            return sum;
-        }
     }
 
     class WhileTest {
@@ -166,9 +185,6 @@ public enum JieTiTree {
             }// end while
         }
 
-        public int getSum() {
-            return sum;
-        }
     }
 
 }

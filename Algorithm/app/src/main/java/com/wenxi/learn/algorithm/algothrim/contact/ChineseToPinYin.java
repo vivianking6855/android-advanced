@@ -1,6 +1,8 @@
-package com.wenxi.learn.algorithm.algothrim;
+package com.wenxi.learn.algorithm.algothrim.contact;
 
 import android.util.Log;
+
+import com.wenxi.learn.algorithm.algothrim.base.IAlgorithm;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,10 +14,9 @@ import java.util.concurrent.TimeUnit;
  * simulator chinese to pinyin algorithm.
  * each chinese words has multi pinyin, we need to get all combine here
  * 模拟测试联系人汉字to拼音的两种策略：递归和while循环
+ * 包含多音字
  */
-public enum ChineseToPinYin {
-    INSTANCE;
-
+public class ChineseToPinYin implements IAlgorithm {
     private final static String TAG = "C2PY";
     private final static String HEADER = "_pinyin_";
     private final int[] dict = new int[]{0, 1, 2, 3, 4, 5, 6}; // simulator chinese words dict
@@ -25,6 +26,27 @@ public enum ChineseToPinYin {
     private List<String> chineseWordsPin = new ArrayList<>(); // target pinyin of chinese words
     private int targetLen = 1;
     private Random random = new Random(System.nanoTime());
+
+    /**
+     * Gets instance with inner static class way
+     *
+     * @return the instance
+     */
+    public static ChineseToPinYin getInstance() {
+        return Holder.INSTANCE;
+    }
+
+    private ChineseToPinYin() {
+    }
+
+    private static class Holder {
+        private static final ChineseToPinYin INSTANCE = new ChineseToPinYin();
+    }
+
+    @Override
+    public void startAlgorithm() {
+        ChineseToPinYin.getInstance().start();
+    }
 
     private void mockData() {
         // mock chinese words 5~10
