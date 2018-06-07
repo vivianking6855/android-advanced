@@ -12,10 +12,11 @@ import com.open.appbase.adapter.recyclerview.RecyclerItemClickListener;
 import com.wenxi.learn.algorithm.R;
 import com.wenxi.learn.algorithm.algothrim.AlgorithmContext;
 import com.wenxi.learn.algorithm.algothrim.AlgorithmFactory;
-import com.wenxi.learn.algorithm.algothrim.linked_list.NodeAlgorithm;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import static com.wenxi.learn.algorithm.utils.Const.LOG_TAG;
 
 
 public class MainActivity extends BaseActivity {
@@ -37,8 +38,8 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        mStrategy = new AlgorithmContext();
-        algorithmFactory = new AlgorithmFactory();
+        mStrategy = AlgorithmContext.getInstance();
+        algorithmFactory = AlgorithmFactory.getInstance();
     }
 
     @Override
@@ -51,7 +52,7 @@ public class MainActivity extends BaseActivity {
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Log.d("vv","onItemClick " + position);
+                Log.d(LOG_TAG, "onItemClick " + position);
                 mStrategy.setAlgorithm(algorithmFactory.createAlgorithm(position));
                 mThreadPool.execute(new Runnable() {
                     @Override

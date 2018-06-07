@@ -4,10 +4,7 @@
     <string-array name="algorithm_list">
         <item> 阶梯树 </item>
         <item> 多音字转拼音 </item>
-        <item> 链表 </item>
-        <item> 链表 </item>
-        <item> 链表 </item>
-        <item> 链表 </item>
+        <item> 链表操作 </item>
         <item> 二叉树 </item>
     </string-array>
 
