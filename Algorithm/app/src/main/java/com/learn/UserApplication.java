@@ -1,4 +1,4 @@
-package com.wenxi.learn.algorithm;
+package com.learn;
 
 import android.app.Application;
 import android.content.res.Configuration;

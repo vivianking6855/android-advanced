@@ -1,12 +1,12 @@
-package com.wenxi.learn.algorithm.algothrim.linked_list;
+package com.learn.algothrim.linked_list;
 
 import android.util.Log;
 
-import com.wenxi.learn.algorithm.algothrim.base.IAlgorithm;
+import com.learn.algothrim.base.IAlgorithm;
 
 import java.util.Stack;
 
-import static com.wenxi.learn.algorithm.utils.Const.LOG_TAG;
+import static com.learn.utils.Const.LOG_TAG;
 
 /**
  * The type Node man.

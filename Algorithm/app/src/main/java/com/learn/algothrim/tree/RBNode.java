@@ -1,4 +1,4 @@
-package com.wenxi.learn.algorithm.algothrim.tree;
+package com.learn.algothrim.tree;
 
 class RBNode<T extends Comparable<T>> {
     boolean color; //颜色

@@ -1,4 +1,4 @@
-package com.wenxi.learn.algorithm.activity;
+package com.learn.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,14 +9,14 @@ import android.view.View;
 import com.open.appbase.activity.BaseActivity;
 import com.open.appbase.adapter.recyclerview.RecyclerArrayAdapter;
 import com.open.appbase.adapter.recyclerview.RecyclerItemClickListener;
-import com.wenxi.learn.algorithm.R;
-import com.wenxi.learn.algorithm.algothrim.AlgorithmContext;
-import com.wenxi.learn.algorithm.algothrim.AlgorithmFactory;
+import com.learn.algorithm.R;
+import com.learn.algorithm.algothrim.AlgorithmContext;
+import com.learn.algorithm.algothrim.AlgorithmFactory;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static com.wenxi.learn.algorithm.utils.Const.LOG_TAG;
+import static com.learn.algorithm.utils.Const.LOG_TAG;
 
 
 public class MainActivity extends BaseActivity {

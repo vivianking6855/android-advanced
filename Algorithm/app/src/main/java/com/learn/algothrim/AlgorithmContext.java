@@ -1,6 +1,6 @@
-package com.wenxi.learn.algorithm.algothrim;
+package com.learn.algothrim;
 
-import com.wenxi.learn.algorithm.algothrim.base.IAlgorithm;
+import com.learn.algothrim.base.IAlgorithm;
 
 public final class AlgorithmContext {
     /**

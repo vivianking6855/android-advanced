@@ -1,8 +1,8 @@
-package com.wenxi.learn.algorithm.algothrim.contact;
+package com.learn.algothrim.contact;
 
 import android.util.Log;
 
-import com.wenxi.learn.algorithm.algothrim.base.IAlgorithm;
+import com.learn.algothrim.base.IAlgorithm;
 
 import java.util.ArrayList;
 import java.util.Arrays;

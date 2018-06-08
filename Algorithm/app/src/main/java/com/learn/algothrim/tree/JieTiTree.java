@@ -1,8 +1,8 @@
-package com.wenxi.learn.algorithm.algothrim.tree;
+package com.learn.algothrim.tree;
 
 import android.util.Log;
 
-import com.wenxi.learn.algorithm.algothrim.base.IAlgorithm;
+import com.learn.algothrim.base.IAlgorithm;
 
 import java.util.ArrayList;
 import java.util.List;

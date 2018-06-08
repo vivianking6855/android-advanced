@@ -1,4 +1,4 @@
-package com.wenxi.learn.algorithm.algothrim.linked_list;
+package com.learn.algothrim.linked_list;
 
 public class Node {
     // node data

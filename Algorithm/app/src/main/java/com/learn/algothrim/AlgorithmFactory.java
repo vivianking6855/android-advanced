@@ -1,10 +1,10 @@
-package com.wenxi.learn.algorithm.algothrim;
+package com.learn.algothrim;
 
-import com.wenxi.learn.algorithm.algothrim.base.IAlgorithm;
-import com.wenxi.learn.algorithm.algothrim.contact.ChineseToPinYin;
-import com.wenxi.learn.algorithm.algothrim.linked_list.LinkedNodeAlgorithm;
-import com.wenxi.learn.algorithm.algothrim.tree.JieTiTree;
-import com.wenxi.learn.algorithm.algothrim.tree.TreeAlgorithm;
+import com.learn.algothrim.base.IAlgorithm;
+import com.learn.algothrim.contact.ChineseToPinYin;
+import com.learn.algothrim.linked_list.LinkedNodeAlgorithm;
+import com.learn.algothrim.tree.JieTiTree;
+import com.learn.algothrim.tree.TreeAlgorithm;
 
 import java.util.ArrayList;
 import java.util.List;

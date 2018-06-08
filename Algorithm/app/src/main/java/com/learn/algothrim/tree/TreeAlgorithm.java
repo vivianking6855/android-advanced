@@ -1,13 +1,9 @@
-package com.wenxi.learn.algorithm.algothrim.tree;
+package com.learn.algothrim.tree;
 
-import android.util.Log;
-
-import com.wenxi.learn.algorithm.algothrim.base.IAlgorithm;
+import com.learn.algothrim.base.IAlgorithm;
 
 import java.util.LinkedList;
 import java.util.Queue;
-
-import static com.wenxi.learn.algorithm.utils.Const.LOG_TAG;
 
 /**
  * The type Tree algorithm.
@@ -18,15 +14,23 @@ import static com.wenxi.learn.algorithm.utils.Const.LOG_TAG;
  * https://mp.weixin.qq.com/s?__biz=MzAxMTI4MTkwNQ==&mid=2650825031&idx=1&sn=f07a913f332f5ddf2054f7ace0b9ceaa&chksm=80b7b5d9b7c03ccff47951986df91202f5a13a438dc42d05836e3e6591ecbce713e062a92fbd&mpshare=1&scene=1&srcid=0425QfT8ZVAfLXthl49OhkJB#rd
  */
 public class TreeAlgorithm implements IAlgorithm {
+
+    /**
+     * Start algorithm.
+     */
     @Override
     public void startAlgorithm() {
         TreeNode<String> root = new TreeNode("A", null);
         mockData(root);
 
-        TreeAlgorithm.getInstance().printTravelsal(root);
-        printPreoderTree(root);
-        printInoderTree(root);
-        printPostTree(root);
+        // 广度优先，队列
+        printTravelsalOneLine(root);
+        //printTravelsal(root);
+
+        // 深度优先，递归
+        //printPreoderTree(root);
+        //printInoderTree(root);
+        //printPostTree(root);
     }
 
     /**
@@ -46,6 +50,7 @@ public class TreeAlgorithm implements IAlgorithm {
     }
 
     //-----------深度优先，前序，中序，后序（递归）--------------------
+
     /**
      * 前序
      *
@@ -55,7 +60,7 @@ public class TreeAlgorithm implements IAlgorithm {
         if (root == null) {
             return;
         }
-        Log.d(LOG_TAG, "Pre " + root.toString());
+        System.out.print("Pre " + root.toString());
         printPreoderTree(root.left);
         printPreoderTree(root.right);
     }
@@ -70,7 +75,7 @@ public class TreeAlgorithm implements IAlgorithm {
             return;
         }
         printInoderTree(root.left);
-        Log.d(LOG_TAG, "In " + root.toString());
+        System.out.print("In " + root.toString());
         printInoderTree(root.right);
     }
 
@@ -85,26 +90,28 @@ public class TreeAlgorithm implements IAlgorithm {
         }
         printPostTree(root.left);
         printPostTree(root.right);
-        Log.d(LOG_TAG, "Post " + root.toString());
+        System.out.print("Post " + root.toString());
     }
 
-    /**         A
-     *     /        \
-     *    B          C
-     *  /    \     /   \
+    /**
+     * A
+     * /        \
+     * B          C
+     * /    \     /   \
      * D     E    F     G
+     *
      * @param root the root
      */
     private void mockData(TreeNode root) {
-        TreeNode<String> B = new TreeNode<>("B",root);
-        TreeNode<String> D = new TreeNode<>("D",B);
-        TreeNode<String> E = new TreeNode<>("E",B);
+        TreeNode<String> B = new TreeNode<>("B", root);
+        TreeNode<String> D = new TreeNode<>("D", B);
+        TreeNode<String> E = new TreeNode<>("E", B);
         B.left = D;
         B.right = E;
 
-        TreeNode<String> C = new TreeNode<>("C",root);
-        TreeNode<String> F = new TreeNode<>("F",C);
-        TreeNode<String> G = new TreeNode<>("G",C);
+        TreeNode<String> C = new TreeNode<>("C", root);
+        TreeNode<String> F = new TreeNode<>("F", C);
+        TreeNode<String> G = new TreeNode<>("G", C);
         C.left = F;
         C.right = G;
 
@@ -116,20 +123,51 @@ public class TreeAlgorithm implements IAlgorithm {
      * 广度/宽度优先：使用Queue/链表，先入先出特性实现
      */
     private void printTravelsal(TreeNode root) {
-        if(root == null){
+        if (root == null) {
             return;
         }
         Queue<TreeNode> queue = new LinkedList<>();
         queue.add(root);
-        while(!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             TreeNode current = queue.poll();
-            Log.d(LOG_TAG,current.toString());
-            if(current.left != null){
+            System.out.print(current.toString());
+            if (current.left != null) {
                 queue.add(current.left);
             }
-            Log.d(LOG_TAG,current.toString());
-            if(current.right != null){
+            if (current.right != null) {
                 queue.add(current.right);
+            }
+        }
+    }
+
+    /**
+     * 广度/宽度优先：使用Queue/链表，先入先出特性实现
+     * 同一层打印在一起，下一层换行
+     */
+    private void printTravelsalOneLine(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        TreeNode last = root; // 当前层最后节点
+        TreeNode next_last = root; // 下一层最后节点
+        while (!queue.isEmpty()) {
+            TreeNode current = queue.poll();
+            System.out.print(current.toString());
+            //Log.d(LOG_TAG,current.toString());
+            if (current.left != null) {
+                queue.add(current.left);
+                next_last = current.left;
+            }
+            if (current.right != null) {
+                queue.add(current.right);
+                next_last = current.right;
+            }
+            // 如果是当前层最后一个，换行并更新last
+            if (current == last) {
+                System.out.println();
+                last = next_last;
             }
         }
     }

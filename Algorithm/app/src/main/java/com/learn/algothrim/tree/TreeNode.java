@@ -1,4 +1,4 @@
-package com.wenxi.learn.algorithm.algothrim.tree;
+package com.learn.algothrim.tree;
 
 class TreeNode<T> {
     T key; //关键字(键值)
