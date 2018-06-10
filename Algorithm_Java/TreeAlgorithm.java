@@ -18,13 +18,16 @@ public class TreeAlgorithm {
         // printTravelsalOneLine(root);
         // printTravelsal(root);
 
-        // 深度优先，递归
+        // 深度优先，递归和遍历两种实现
+        System.out.println("pre order==================");
         printPreoderTree(root);
-        // printInoderTree(root);
-        // printPostTree(root);
-
-        // 深度优先，前序遍历
         printPreoderTree2(root);
+        System.out.println("in order==================");
+        printInoderTree(root);
+        printInoderTree2(root);
+        System.out.println("post order==================");
+        printPostTree(root);
+        printPostTree2(root);
     }
 
     /**
@@ -103,6 +106,32 @@ public class TreeAlgorithm {
     }
 
     /**
+     * 中序，迭代实现
+     *
+     * @param root the root
+     */
+    private void printInoderTree2(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+
+        System.out.println("loop in order==================");
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode cur = root;
+        while (!stack.isEmpty() || cur != null) {
+            if (cur != null) { // push all left node
+                stack.push(cur);
+                cur = cur.left;
+            } else { // if left is null, it mean it's the bottom leaf
+                cur = stack.pop();
+                System.out.println("in " + cur.toString());
+                // push right node
+                cur = cur.right;
+            }
+        }
+    }
+
+    /**
      * 后序
      *
      * @param root the root
@@ -114,6 +143,37 @@ public class TreeAlgorithm {
         printPostTree(root.left);
         printPostTree(root.right);
         System.out.println("Post " + root.toString());
+    }
+
+    private void printPostTree2(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+
+        System.out.println("loop post order==================");
+
+        Stack<TreeNode> stack = new Stack<>();
+        Stack<TreeNode> output = new Stack<>();
+        stack.push(root);
+        TreeNode cur;
+        while (!stack.isEmpty()) {
+            cur = stack.pop();
+            output.push(cur);
+
+            if (cur.left != null) {
+                stack.push(cur.left);
+            }
+
+            if (cur.right != null) {
+                stack.push(cur.right);
+            }
+        }
+
+        while (!output.isEmpty()) {
+            cur = output.pop();
+            System.out.println("Post " + cur.toString());
+        }
+
     }
 
     /**
