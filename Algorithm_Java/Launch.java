@@ -4,6 +4,7 @@
 public class Launch {
 
     public static void main(String[] args) {
-        TreeAlgorithm.getInstance().startAlgorithm();
+        //TreeAlgorithm.getInstance().startAlgorithm();
+        StringPerform.getInstance().demo();
     }
 }

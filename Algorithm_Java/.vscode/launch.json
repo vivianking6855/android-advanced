@@ -8,7 +8,7 @@
             "type": "java",
             "name": "Launch",
             "request": "launch",
-            "cwd": "${workspaceFolder}",
+            "cwd": "E:\\Git\\GitHub\\Android\\android-advanced\\Algorithm_Java\\Launch.java",
             "console": "internalConsole",
             "stopOnEntry": false,
             "mainClass": "Launch",
