@@ -1,3 +1,5 @@
+package algorithm;
+
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
@@ -36,7 +38,7 @@ public class TreeAlgorithm {
      * @return the instance
      */
     public static TreeAlgorithm getInstance() {
-        return TreeAlgorithm.Holder.INSTANCE;
+        return Holder.INSTANCE;
     }
 
     private TreeAlgorithm() {

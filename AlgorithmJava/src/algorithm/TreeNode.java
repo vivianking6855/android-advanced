@@ -1,3 +1,5 @@
+package algorithm;
+
 class TreeNode<T> {
     T key; // 关键字(键值)
     TreeNode<T> left; // 左子节点
