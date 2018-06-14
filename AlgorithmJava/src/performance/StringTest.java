@@ -9,6 +9,7 @@ public class StringTest {
         //ConstStringTest.start();
         //DynamicStringTest.start();
         CutStringTest.start();
+        // CreateString.start();
     }
 
     /**

@@ -17,7 +17,7 @@ public class CutStringTest {
         substringStr(originStr);
     }
 
-    private static void splitStr(String orgin){
+    private static void splitStr(String orgin) {
         String TAG = "[split]: ";
         long startMem = startRecordMemory(TAG);
         long lastTimeNanos = System.nanoTime();
@@ -28,7 +28,7 @@ public class CutStringTest {
         System.out.println();
     }
 
-    private static void stringTokenizerStr(String origin){
+    private static void stringTokenizerStr(String origin) {
         String TAG = TAG = "[StringTokenizer]: ";
         long startMem = startRecordMemory(TAG);
         long lastTimeNanos = System.nanoTime();
@@ -39,12 +39,13 @@ public class CutStringTest {
         System.out.println();
     }
 
-    private static void substringStr(String origin){
+    private static void substringStr(String origin) {
         String TAG = "[substring]: ";
         long startMem = startRecordMemory(TAG);
         long lastTimeNanos = System.nanoTime();
         int len = origin.lastIndexOf(".");
         int k = 0, count = 0;
+        //String sub;
         for (int i = 0; i <= len; i++) {
             if (origin.substring(i, i + 1).equals(".")) {
                 if (count == 0) {
@@ -60,16 +61,14 @@ public class CutStringTest {
             }
         }
 
-        System.out.println(TAG + "result " + count + 1);
+        System.out.println(TAG + "result " + count);
         System.out.println(diff(TAG, lastTimeNanos));
         stopRecordMemory(TAG, startMem);
         System.out.println();
     }
 
-    /**
-     */
     private static String getOriginStr() {
-        final int len = 10;
+        final int len = 10000;
         StringBuilder result = new StringBuilder();
         Random random = new Random();
         for (int i = 0; i < len; i++) {

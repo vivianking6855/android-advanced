@@ -18,7 +18,6 @@ public class CollectUtils {
         long startMem = run.totalMemory() - run.freeMemory();
         System.out.println(
                 tag + "memory> total:" + run.totalMemory() + " free:" + run.freeMemory() + " used:" + startMem);
-
         return startMem;
     }
 
